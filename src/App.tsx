@@ -24,6 +24,7 @@ function App() {
     if (_token !== null && _token !== undefined) {
       updateSpotifyToken(_token)
       setToken(_token)
+      window.location.hash = ''
     }
 
   }, []);
