@@ -1,7 +1,30 @@
-import { loginUrl } from "../adapters/spotify";
+
+import { useContext, useEffect } from 'react'
+import { GlobalContext } from '../context'
+import { init, clientId, code, getAccessToken } from '../adapters/spotify'
 import Box from '@mui/material/Box';
 
-function SpotifyLoginPage() {
+function Login() {
+  const appContext = useContext(GlobalContext)
+  const spotifyToken = appContext.spotifyToken
+  const updateSpotifyToken = appContext.updateSpotifyToken
+
+
+
+  const setToken = async (code: string) => {
+    const accessToken = await getAccessToken(clientId, code).then(
+      (response) => {
+        if (spotifyToken === '' || spotifyToken === null) {
+          updateSpotifyToken(response)
+
+        }
+      }
+    )
+  }
+  if (code) {
+    setToken(code)
+  }
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
       <h1>Login with Spotify</h1>
@@ -15,9 +38,9 @@ function SpotifyLoginPage() {
           display: 'block'
         }}
       />
-      <a href={loginUrl}>LOGIN WITH SPOTIFY</a>
+      <button onClick={() => init()}>LOGIN WITH SPOTIFY</button>
     </Box>
   )
 }
 
-export default SpotifyLoginPage
+export default Login
