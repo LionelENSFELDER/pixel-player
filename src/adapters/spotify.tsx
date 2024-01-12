@@ -29,32 +29,27 @@ export const code = params.get("code");
 export async function init() {
   if (!code) {
     redirectToAuthCodeFlow(clientId);
-  } else {
-    // const accessToken = await getAccessToken(clientId, code);
   }
 }
 
 export async function redirectToAuthCodeFlow(clientId: string) {
-  const verifier = generateCodeVerifier(128);
-  const challenge = await generateCodeChallenge(verifier);
+  const verifier = generateCodeVerifier(128)
+  const challenge = await generateCodeChallenge(verifier)
+  localStorage.setItem("verifier", verifier)
+  const params = new URLSearchParams()
+  params.append("client_id", clientId)
+  params.append("response_type", "code")
+  params.append("redirect_uri", "http://localhost:5173/loginCallback")
+  params.append("scope", "user-read-private user-read-email")
+  params.append("code_challenge_method", "S256")
+  params.append("code_challenge", challenge)
 
-  localStorage.setItem("verifier", verifier);
-  console.log(localStorage.verifier)
-
-  const params = new URLSearchParams();
-  params.append("client_id", clientId);
-  params.append("response_type", "code");
-  params.append("redirect_uri", "http://localhost:5173/login");
-  params.append("scope", "user-read-private user-read-email");
-  params.append("code_challenge_method", "S256");
-  params.append("code_challenge", challenge);
-
-  document.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
+  document.location = `https://accounts.spotify.com/authorize?${params.toString()}`
 }
 
 function generateCodeVerifier(length: number) {
   let text = '';
-  let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
   for (let i = 0; i < length; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -77,7 +72,7 @@ export async function getAccessToken(clientId: string, code: string): Promise<st
   params.append("client_id", clientId)
   params.append("grant_type", "authorization_code")
   params.append("code", code)
-  params.append("redirect_uri", "http://localhost:5173/login")
+  params.append("redirect_uri", "http://localhost:5173/loginCallback")
   params.append("code_verifier", verifier!)
 
   const result = await fetch("https://accounts.spotify.com/api/token", {
@@ -98,4 +93,26 @@ export async function fetchProfile(token: string): Promise<UserProfile> {
 
 export function populateUI(profile: UserProfile) {
   console.log('profile.display_name', profile.display_name)
+}
+
+export const isSpotifyToken = () => {
+  const token = localStorage.getItem('spotifyToken')
+  if (token) {
+    return true
+  }
+  return false
+}
+
+export const setToken = async (code: string) => {
+  try {
+    const response = await getAccessToken(clientId, code)
+
+    if (response === undefined) {
+      console.error('getAccessToken returned undefined')
+    } else {
+      localStorage.setItem('spotifyToken', response)
+    }
+  } catch (error) {
+    console.error('Error setting spotifyToken:', error)
+  }
 }

@@ -1,43 +1,8 @@
 
-import { useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
-import { init, clientId, code, getAccessToken } from '../adapters/spotify'
+import { init } from '../adapters/spotify'
 import Box from '@mui/material/Box';
 
 function Login() {
-  const navigate = useNavigate()
-  console.log(localStorage.getItem('spotifyToken'), typeof localStorage.getItem('spotifyToken'))
-
-  const isSpotifyToken = () => {
-    const token = localStorage.getItem('spotifyToken')
-    if (token !== null && token !== undefined && token !== 'undefined' && token !== 'null') {
-      return true
-    }
-    return false
-  }
-
-  const setToken = async (code: string) => {
-    const accessToken = await getAccessToken(clientId, code).then(
-      (response) => {
-        localStorage.setItem('spotifyToken', response)
-        console.log(localStorage.getItem('spotifyToken'), 'login page')
-      }
-    )
-  }
-
-  if (code) {
-    setToken(code)
-  }
-
-  useEffect(() => {
-    console.log('useEffect')
-    if (isSpotifyToken()) {
-      navigate('/')
-    }
-  })
-
-
-
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
       <h1>Login page</h1>
