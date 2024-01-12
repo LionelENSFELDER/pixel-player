@@ -1,4 +1,4 @@
-export interface UserProfile {
+export interface UserProfileInterface {
   country: string;
   display_name: string;
   email: string;
@@ -10,16 +10,10 @@ export interface UserProfile {
   followers: { href: string; total: number; };
   href: string;
   id: string;
-  images: Image[];
+  // images: ImageInterface[];
   product: string;
   type: string;
   uri: string;
-}
-
-export interface Image {
-  url: string;
-  height: number;
-  width: number;
 }
 
 export const clientId = "28246b24acca41d89272cad865b1087a";
@@ -48,22 +42,22 @@ export async function redirectToAuthCodeFlow(clientId: string) {
 }
 
 function generateCodeVerifier(length: number) {
-  let text = '';
+  let text = ''
   let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
   for (let i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
+    text += possible.charAt(Math.floor(Math.random() * possible.length))
   }
-  return text;
+  return text
 }
 
 async function generateCodeChallenge(codeVerifier: string) {
-  const data = new TextEncoder().encode(codeVerifier);
-  const digest = await window.crypto.subtle.digest('SHA-256', data);
+  const data = new TextEncoder().encode(codeVerifier)
+  const digest = await window.crypto.subtle.digest('SHA-256', data)
   return btoa(String.fromCharCode.apply(null, [...new Uint8Array(digest)]))
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
-    .replace(/=+$/, '');
+    .replace(/=+$/, '')
 }
 
 export async function getAccessToken(clientId: string, code: string): Promise<string> {
@@ -88,7 +82,7 @@ export async function fetchProfile(token: string): Promise<UserProfile> {
   const result = await fetch("https://api.spotify.com/v1/me", {
     method: "GET", headers: { Authorization: `Bearer ${token}` }
   })
-  return await result.json();
+  return await result.json()
 }
 
 export function populateUI(profile: UserProfile) {
@@ -115,4 +109,19 @@ export const setToken = async (code: string) => {
   } catch (error) {
     console.error('Error setting spotifyToken:', error)
   }
+}
+
+export const getToken = () => {
+  if (isSpotifyToken()) {
+    return localStorage.getItem('spotifyToken')
+  } else {
+    return null
+  }
+}
+
+export async function fetchPlaylists(token: string): Promise<any> {
+  const result = await fetch("https://api.spotify.com/v1/me/playlists", {
+    method: "GET", headers: { Authorization: `Bearer ${token}` }
+  })
+  return await result.json()
 }

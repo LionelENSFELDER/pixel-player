@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Login from './pages/Login'
 import Player from './pages/Player'
-import { isSpotifyToken } from './adapters/spotify'
+import { isSpotifyToken, getToken } from './adapters/spotify'
 import './App.css'
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
     <>
       <div>
         <h1>{spotifyToken.toString()}</h1>
-        {spotifyToken ? <Player /> : <Login />}
+        {spotifyToken ? <Player token={getToken()} /> : <Login />}
       </div>
     </>
   )
