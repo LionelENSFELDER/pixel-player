@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react'
-import Login from './pages/Login'
-import Player from './pages/Player'
-import { isSpotifyToken, getToken } from './adapters/spotify'
-import './App.css'
+import { useEffect, useState } from "react";
+import Login from "./pages/login";
+import Player from "./pages/player";
+import { isSpotifyToken, getToken } from "./adapters/spotify";
+import "./App.css";
 
 function App() {
-  const [spotifyToken, setSpotifyToken] = useState(isSpotifyToken())
+  const [spotifyToken, setSpotifyToken] = useState(isSpotifyToken());
 
   useEffect(() => {
-    const updatedToken = isSpotifyToken()
-    setSpotifyToken(updatedToken)
-  }, [])
+    const updatedToken = isSpotifyToken();
+    setSpotifyToken(updatedToken);
+  }, []);
 
   return (
     <>
@@ -19,7 +19,7 @@ function App() {
         {spotifyToken ? <Player token={getToken()} /> : <Login />}
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

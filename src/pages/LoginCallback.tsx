@@ -1,18 +1,17 @@
-
-import { useEffect } from 'react'
-import { useNavigate } from "react-router-dom"
-import { code, setToken } from '../adapters/spotify'
-import Box from '@mui/material/Box'
-import CircularProgress from '@mui/material/CircularProgress';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { code, setToken } from "../adapters/spotify";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function LoginCallback() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       if (code) {
         await setToken(code);
-        setTimeout(() => navigate('/'), 1000);
+        setTimeout(() => navigate("/"), 1000);
       }
     };
 
@@ -20,12 +19,21 @@ function LoginCallback() {
   }, [navigate, code]);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <h1>LoginCallback page</h1>
-      <Box component={CircularProgress} sx={{ width: '500px', height: '500px', display: 'block' }}
+      <Box
+        component={CircularProgress}
+        sx={{ width: "500px", height: "500px", display: "block" }}
       />
     </Box>
-  )
+  );
 }
 
-export default LoginCallback
+export default LoginCallback;
