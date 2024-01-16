@@ -5,7 +5,7 @@ import { GlobalContextProvider } from "./context";
 import Login from "./pages/login.tsx";
 import LoginCallback from "./pages/loginCallback.tsx";
 import App from "./App.tsx";
-import "./index.css";
+import "reset-css";
 
 const router = createBrowserRouter([
   {

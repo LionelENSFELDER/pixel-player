@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchPlaylists } from "../adapters/spotify";
+import { MainContainer, BaseContainer } from "../components/containers";
+import Navbar from "../components/navbar";
 import Box from "@mui/material/Box";
 
 interface PlayerProps {
@@ -28,15 +30,23 @@ function Player({ token }: PlayerProps) {
   }, [token]);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <h1>Player page</h1>
+    <MainContainer>
+      <Navbar />
+      <BaseContainer>
+        {playlistsImages.length > 0 &&
+          playlistsImages.map((item, i) => {
+            return (
+              <Box
+                key={i}
+                component="img"
+                src={item}
+                alt=""
+                sx={{ width: "auto", height: "100px", mx: "20px" }}
+              />
+            );
+          })}
+      </BaseContainer>
+
       <Box
         sx={{
           display: "flex",
@@ -58,7 +68,7 @@ function Player({ token }: PlayerProps) {
             );
           })}
       </Box>
-    </Box>
+    </MainContainer>
   );
 }
 
