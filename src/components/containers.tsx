@@ -1,74 +1,38 @@
-import { Box } from "@mui/material";
-export interface MainContainerProps {
+import Stack from "@mui/system/Stack";
+import NavBar from "./navbar";
+
+export interface ContainerProps {
   children: string | JSX.Element | JSX.Element[];
 }
-export function MainContainer({ children }: MainContainerProps) {
+export interface BaseContainerProps {
+  children: string | JSX.Element | JSX.Element[];
+  direction: string;
+  justify: string;
+  align: string;
+  radius: number;
+  background: string;
+  border: string;
+  width: number;
+}
+
+export function MainContainer({ children }: ContainerProps) {
   return (
-    <Box
+    <Stack
+      id="Maincontainer"
+      useFlexGap
       sx={{
         boxSizing: "border-box",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
         backgroundColor: "#75B7A4",
         p: 1,
-        width: 1,
-        height: "100vh",
+        border: "2px solid #FFF",
+        borderRadius: 3,
+        height: "100%",
       }}
     >
-      <Box
-        sx={{
-          boxSizing: "border-box",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          p: 1,
-          border: "2px solid #FFF",
-          borderRadius: 3,
-          width: 1,
-          height: "100%",
-        }}
-      >
-        {children}
-      </Box>
-    </Box>
-  );
-}
-
-export function BaseContainer({
-  children,
-  direction = "row",
-  justify = "center",
-  align = "center",
-  radius = 3,
-  background = "#75B7A4",
-  border = "2px solid #FFF",
-  width = 1,
-}) {
-  return (
-    <Box
-      sx={{
-        boxSizing: "border-box",
-        display: "flex",
-        flexDirection: direction,
-        justifyContent: justify,
-        alignItems: align,
-        p: 1,
-        border: border,
-        borderRadius: radius,
-        backgroundColor: background,
-        width: width,
-      }}
-    >
+      <NavBar />
       {children}
-    </Box>
+    </Stack>
   );
 }
 
-export function PlaylistContainer({ children }: MainContainerProps) {
-  return <Box>{children}</Box>;
-}
-
-export default { MainContainer, PlaylistContainer };
+export default { MainContainer };
