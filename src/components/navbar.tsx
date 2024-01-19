@@ -14,6 +14,8 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import GraphicEqIcon from "@mui/icons-material/GraphicEq";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
 
 const pages = ["Playlists", "Podcasts", "Albums"];
 const settings = ["Account", "Logout"];
@@ -41,7 +43,7 @@ function NavBar() {
     <AppBar
       position="static"
       sx={{
-        backgroundColor: "#75B7A4",
+        backgroundColor: "primary.main",
         mb: 3,
         border: "2px solid #FFF",
         borderRadius: 3,
@@ -164,6 +166,12 @@ function NavBar() {
                 </MenuItem>
               ))}
             </Menu>
+            <Box sx={{ display: "inline-block", mx: 2 }}>
+              <FormControlLabel
+                control={<Switch defaultChecked />}
+                label="Label"
+              />
+            </Box>
           </Box>
         </Toolbar>
       </Container>

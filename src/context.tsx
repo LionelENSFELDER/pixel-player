@@ -1,42 +1,21 @@
 import { createContext, useState } from "react";
 
 type GlobalContextType = {
-  userLogged: User | null;
-  updateUserLogged: (user: User) => void;
-  spotifyToken: string | null;
-  updateSpotifyToken: (token: string) => void;
+  themeMode: string;
+  toggleThemeMode: (mode: string) => void;
 };
 
 const defaultContextValue = {
-  userLogged: null,
-  updateUserLogged: () => {},
-  spotifyToken: null,
-  updateSpotifyToken: () => {},
+  themeMode: "light",
+  toggleThemeMode: () => {},
 };
 
-export const GlobalContext =
-  createContext<GlobalContextType>(defaultContextValue);
+export const GlobalContext = createContext<GlobalContextType>(defaultContextValue);
 
-export const GlobalContextProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  const [userLogged, setUserLogged] = useState<User | null>(null!);
-  const updateUserLogged = (user: User) => {
-    setUserLogged(user);
+export const GlobalContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const [themeMode, setThemeMode] = useState<string>("light");
+  const toggleThemeMode = (mode: string) => {
+    setThemeMode(mode);
   };
-  const [spotifyToken, setSpotifyToken] = useState("");
-  const updateSpotifyToken = (spotifyToken: string) => {
-    if (spotifyToken !== null && spotifyToken !== "") {
-      setSpotifyToken(spotifyToken);
-    }
-  };
-  return (
-    <GlobalContext.Provider
-      value={{ userLogged, updateUserLogged, spotifyToken, updateSpotifyToken }}
-    >
-      {children}
-    </GlobalContext.Provider>
-  );
+  return <GlobalContext.Provider value={{ themeMode, toggleThemeMode }}>{children}</GlobalContext.Provider>;
 };

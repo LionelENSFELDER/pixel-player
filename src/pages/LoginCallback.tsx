@@ -11,12 +11,12 @@ function LoginCallback() {
     const fetchData = async () => {
       if (code) {
         await setToken(code);
-        setTimeout(() => navigate("/"), 1000);
+        navigate("/");
       }
     };
 
     fetchData();
-  }, [navigate, code]);
+  }, [navigate]);
 
   return (
     <Box
@@ -28,10 +28,7 @@ function LoginCallback() {
       }}
     >
       <h1>LoginCallback page</h1>
-      <Box
-        component={CircularProgress}
-        sx={{ width: "500px", height: "500px", display: "block" }}
-      />
+      <Box component={CircularProgress} sx={{ width: "500px", height: "500px", display: "block" }} />
     </Box>
   );
 }
