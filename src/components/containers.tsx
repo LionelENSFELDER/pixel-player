@@ -19,14 +19,13 @@ export function MainContainer({ children }: ContainerProps) {
   return (
     <Stack
       id="Maincontainer"
-      useFlexGap
+      spacing={2}
       sx={{
-        boxSizing: "border-box",
         backgroundColor: "#75B7A4",
         p: 1,
         border: "2px solid #FFF",
-        borderRadius: 3,
-        height: "100%",
+        height: "100vh",
+        width: "100vw",
       }}
     >
       <NavBar />

@@ -1,5 +1,4 @@
 import { ThemeProvider } from "@mui/material";
-import CssBaseline from "@mui/material/CssBaseline";
 import { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "./context";
 import Login from "./pages/login";
@@ -21,7 +20,6 @@ function App() {
 
   return (
     <ThemeProvider theme={colorMode === "light" ? LightTheme : DarkTheme}>
-      <CssBaseline />
       <MainContainer>{spotifyToken ? <Player token={getToken()} /> : <Login />}</MainContainer>
     </ThemeProvider>
   );
