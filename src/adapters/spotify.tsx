@@ -43,8 +43,7 @@ export async function redirectToAuthCodeFlow(clientId: string) {
 
 function generateCodeVerifier(length: number) {
   let text = "";
-  const possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
   for (let i = 0; i < length; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -61,10 +60,7 @@ async function generateCodeChallenge(codeVerifier: string) {
     .replace(/=+$/, "");
 }
 
-export async function getAccessToken(
-  clientId: string,
-  code: string
-): Promise<string> {
+export async function getAccessToken(clientId: string, code: string): Promise<string> {
   const verifier = localStorage.getItem("verifier");
   const params = new URLSearchParams();
   params.append("client_id", clientId);
@@ -82,9 +78,7 @@ export async function getAccessToken(
   return access_token;
 }
 
-export async function fetchProfile(
-  token: string
-): Promise<UserProfileInterface> {
+export async function fetchProfile(token: string): Promise<UserProfileInterface> {
   const result = await fetch("https://api.spotify.com/v1/me", {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },

@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from "@mui/material";
 const DarkTheme = createTheme({
   palette: {
     mode: "dark",

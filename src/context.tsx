@@ -1,21 +1,21 @@
 import { createContext, useState } from "react";
 
 type GlobalContextType = {
-  themeMode: string;
-  toggleThemeMode: (mode: string) => void;
+  colorMode: string;
+  toggleColorMode: () => void;
 };
 
 const defaultContextValue = {
-  themeMode: "light",
-  toggleThemeMode: () => {},
+  colorMode: "light",
+  toggleColorMode: () => {},
 };
 
 export const GlobalContext = createContext<GlobalContextType>(defaultContextValue);
 
 export const GlobalContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [themeMode, setThemeMode] = useState<string>("light");
-  const toggleThemeMode = (mode: string) => {
-    setThemeMode(mode);
+  const [colorMode, setColorMode] = useState<string>("light");
+  const toggleColorMode = () => {
+    setColorMode((currentMode) => (currentMode === "light" ? "dark" : "light"));
   };
-  return <GlobalContext.Provider value={{ themeMode, toggleThemeMode }}>{children}</GlobalContext.Provider>;
+  return <GlobalContext.Provider value={{ colorMode, toggleColorMode }}>{children}</GlobalContext.Provider>;
 };

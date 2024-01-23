@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchPlaylists } from "../adapters/spotify";
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 
 interface FetchedPlaylistsImage {
   height: string;
@@ -26,9 +26,7 @@ function Player({ token }: PlayerProps) {
           const response = await fetchPlaylists(token);
           const fetchedPlaylists = response.items;
 
-          const images = fetchedPlaylists.map(
-            (item: FetchedPlaylists) => item.images[0].url
-          );
+          const images = fetchedPlaylists.map((item: FetchedPlaylists) => item.images[0].url);
           setPlaylistsImages(images);
         }
       } catch (error) {
@@ -56,15 +54,7 @@ function Player({ token }: PlayerProps) {
     >
       {playlistsImages.length > 0 &&
         playlistsImages.map((item, i) => {
-          return (
-            <Box
-              key={i}
-              component="img"
-              src={item}
-              alt=""
-              sx={{ width: 100, height: "auto", mx: 2 }}
-            />
-          );
+          return <Box key={i} component="img" src={item} alt="" sx={{ width: 100, height: "auto", mx: 2 }} />;
         })}
     </Box>
   );

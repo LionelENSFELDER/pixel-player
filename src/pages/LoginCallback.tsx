@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { code, setToken } from "../adapters/spotify";
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
 function LoginCallback() {

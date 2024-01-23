@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   AppBar,
   Box,
@@ -12,6 +12,7 @@ import {
   Tooltip,
   MenuItem,
 } from "@mui/material";
+import { GlobalContext } from "../context";
 import MenuIcon from "@mui/icons-material/Menu";
 import GraphicEqIcon from "@mui/icons-material/GraphicEq";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -21,6 +22,10 @@ const pages = ["Playlists", "Podcasts", "Albums"];
 const settings = ["Account", "Logout"];
 
 function NavBar() {
+  const context = useContext(GlobalContext);
+  const colorMode = context.colorMode;
+  const toggleColorMode = context.toggleColorMode;
+
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -128,11 +133,7 @@ function NavBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
+              <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }}>
                 {page}
               </Button>
             ))}
@@ -167,10 +168,7 @@ function NavBar() {
               ))}
             </Menu>
             <Box sx={{ display: "inline-block", mx: 2 }}>
-              <FormControlLabel
-                control={<Switch defaultChecked />}
-                label="Label"
-              />
+              <FormControlLabel control={<Switch onChange={toggleColorMode} />} label={colorMode} />
             </Box>
           </Box>
         </Toolbar>
