@@ -1,25 +1,10 @@
 import { useState, useContext } from "react";
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  IconButton,
-  Typography,
-  Menu,
-  Container,
-  Avatar,
-  Button,
-  Tooltip,
-  MenuItem,
-} from "@mui/material";
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Tooltip } from "@mui/material";
 import { GlobalContext } from "../context";
 import MenuIcon from "@mui/icons-material/Menu";
 import GraphicEqIcon from "@mui/icons-material/GraphicEq";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
-
-const pages = ["Playlists", "Podcasts", "Albums"];
-const settings = ["Account", "Logout"];
 
 function NavBar() {
   const context = useContext(GlobalContext);
@@ -48,11 +33,12 @@ function NavBar() {
     <AppBar
       position="static"
       sx={{
-        backgroundColor: "primary.main",
-        mb: 3,
-        border: "2px solid #FFF",
-        borderRadius: 3,
+        justifyContent: "center",
+        backgroundColor: "background.default",
+        color: "text.primary",
+        borderBottom: "2px solid #F3F3F3",
         boxShadow: "none",
+        height: 1 / 12,
       }}
     >
       <Container maxWidth="xl">
@@ -105,11 +91,11 @@ function NavBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
+              {/* {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
-              ))}
+              ))} */}
             </Menu>
           </Box>
           <GraphicEqIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -132,11 +118,11 @@ function NavBar() {
             Pixel Player
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {/* {pages.map((page) => (
               <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }}>
                 {page}
               </Button>
-            ))}
+            ))} */}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -160,13 +146,7 @@ function NavBar() {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            ></Menu>
             <Box sx={{ display: "inline-block", mx: 2 }}>
               <FormControlLabel control={<Switch onChange={toggleColorMode} />} label={colorMode} />
             </Box>

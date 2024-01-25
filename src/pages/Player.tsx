@@ -1,34 +1,36 @@
+import { useContext } from "react";
 import { Box, Grid } from "@mui/material";
-import Playlists from "../components/playlists";
+import Menu from "../components/menu";
+import { GlobalContext } from "../context";
+import ListView from "../components/listView";
 
 interface PlayerProps {
   token: string | null;
 }
 
 function Player({ token }: PlayerProps) {
+  const context = useContext(GlobalContext);
+  const listView = context.listView;
+
   return (
     <Grid sx={{ flexGrow: 1 }}>
       <Grid
-        container
-        spacing={2}
-        id="middle-container"
+        spacing={1}
+        id="player-container"
         sx={{
+          boxSizing: "border-box",
           display: "flex",
           flexDirection: "row",
           justifyContent: "flex-start",
           alignItems: "flex-start",
-          backgroundColor: "red",
+          backgroundColor: "yellow",
           width: 1,
-          p: 2,
+          height: 10 / 12,
+          // p: 2,
         }}
       >
-        <Playlists token={token} />
-        <Box sx={{ backgroundColor: "green" }}>
-          <h1>skldjfks fs jfsj fksj fsj</h1>
-        </Box>
-        <Box sx={{ backgroundColor: "brown" }}>
-          <h1>skldjfks fs jfsj fksj fsj</h1>
-        </Box>
+        <Menu />
+        {token && <ListView view={listView} token={token} />}
       </Grid>
     </Grid>
   );

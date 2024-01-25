@@ -19,10 +19,10 @@ export function MainContainer({ children }: ContainerProps) {
   return (
     <Stack
       id="Maincontainer"
-      spacing={2}
+      // spacing={2}
       sx={{
-        backgroundColor: "#75B7A4",
-        p: 1,
+        backgroundColor: "primary.main",
+        // p: 1,
         border: "2px solid #FFF",
         height: "100vh",
         width: "100vw",

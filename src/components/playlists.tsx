@@ -46,9 +46,9 @@ const Playlists = ({ token }: PlaylistsProps) => {
           justifyContent: "flex-start",
           alignItems: "center",
           p: 1,
-          border: "2px solid #FFF",
+          borderLeft: "2px solid #F3F3F3",
           borderRadius: 3,
-          backgroundColor: "#75B7A4",
+          backgroundColor: "primary.main",
         }}
       >
         {userPlaylists.length > 0 &&
