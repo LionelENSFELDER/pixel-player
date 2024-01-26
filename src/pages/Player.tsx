@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { Box, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import Menu from "../components/menu";
 import { GlobalContext } from "../context";
 import ListView from "../components/listView";
+import TracksView from "../components/tracksView";
 
 interface PlayerProps {
   token: string | null;
@@ -31,6 +32,7 @@ function Player({ token }: PlayerProps) {
       >
         <Menu />
         {token && <ListView view={listView} token={token} />}
+        {token && <TracksView />}
       </Grid>
     </Grid>
   );

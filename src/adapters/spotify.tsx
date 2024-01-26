@@ -120,8 +120,16 @@ export const getToken = () => {
   }
 };
 
-export async function fetchPlaylists(token: string): Promise<any> {
+export async function fetchPlaylists(token: string): Promise<[]> {
   const result = await fetch("https://api.spotify.com/v1/me/playlists", {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return await result.json();
+}
+
+export async function fetchPlaylistItems(token: string, id: string): Promise<[]> {
+  const result = await fetch(`https://api.spotify.com/v1/playlists/${id}/tracks`, {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   });
