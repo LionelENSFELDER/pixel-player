@@ -5,10 +5,10 @@ type GlobalContextType = {
   updateSpotifyToken: (token: string) => void;
   colorMode: string;
   toggleColorMode: () => void;
-  listView: string;
-  updateListView: (view: string) => void;
-  playlistTracks: [];
-  updatePlaylistTracks: (tracks: []) => void;
+  menu: string;
+  updateMenu: (view: string) => void;
+  tracks: [];
+  updateTracks: (id: string) => void;
 };
 
 const defaultContextValue = {
@@ -16,10 +16,10 @@ const defaultContextValue = {
   updateSpotifyToken: () => {},
   colorMode: "light",
   toggleColorMode: () => {},
-  listView: "Playlists",
-  updateListView: () => {},
-  playlistTracks: [],
-  updatePlaylistTracks: (tracks: []) => {},
+  menu: "Playlists",
+  updateMenu: () => {},
+  tracks: [],
+  updateTracks: () => {},
 };
 
 export const GlobalContext = createContext<GlobalContextType>(defaultContextValue);
@@ -35,16 +35,16 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
     setColorMode((currentMode) => (currentMode === "light" ? "dark" : "light"));
   };
 
-  const [listView, setListView] = useState<string>("Playlists");
-  const updateListView = (view: string) => {
-    if (view !== listView) {
-      setListView(view);
+  const [menu, setMenu] = useState<string>("Playlists");
+  const updateMenu = (name: string) => {
+    if (name !== menu) {
+      setMenu(name);
     }
   };
 
-  const [playlistTracks, setPlaylistTracks] = useState<[]>([]);
-  const updatePlaylistTracks = (tracks: []) => {
-    setPlaylistTracks(tracks);
+  const [tracks, setTracks] = useState<[]>([]);
+  const updateTracks = (tracks: []) => {
+    setTracks(tracks);
   };
 
   return (
@@ -54,10 +54,10 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
         updateSpotifyToken,
         colorMode,
         toggleColorMode,
-        listView,
-        updateListView,
-        playlistTracks,
-        updatePlaylistTracks,
+        menu,
+        updateMenu,
+        tracks,
+        updateTracks,
       }}
     >
       {children}

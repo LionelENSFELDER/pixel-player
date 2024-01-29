@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "./context";
 import Login from "./pages/login";
 import Player from "./pages/Player";
-import { isSpotifyToken, getToken } from "./adapters/spotify";
+import { isSpotifyToken, getToken } from "./api/spotify.tsx";
 import { MainContainer } from "./components/containers";
 import LightTheme from "./themes/light.tsx";
 import DarkTheme from "./themes/dark.tsx";

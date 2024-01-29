@@ -1,4 +1,4 @@
-import { init } from "../adapters/spotify";
+import { init } from "../api/spotify";
 import { Box } from "@mui/material";
 
 function Login() {

@@ -1,10 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { GlobalContext } from "../context";
 import { Box, Button } from "@mui/material";
-
-const Menu = () => {
+interface MenuProps {
+  handleSelectedMenu: (name: string) => void;
+}
+const Menu = ({ handleSelectedMenu }: MenuProps) => {
   const context = useContext(GlobalContext);
-  const updateListView = context.updateListView;
+  const updateMenu = context.updateMenu;
   const menuItems = ["Trending", "Playlists", "Albums", "Podcasts"];
 
   return (
@@ -24,7 +26,7 @@ const Menu = () => {
         {menuItems.length > 0 &&
           menuItems.map((item, i) => {
             return (
-              <Button key={i} sx={{ color: "text.primary" }} onClick={() => updateListView(item)}>
+              <Button key={i} sx={{ color: "text.primary" }} onClick={() => handleSelectedMenu(item.toLowerCase())}>
                 {item}
               </Button>
             );

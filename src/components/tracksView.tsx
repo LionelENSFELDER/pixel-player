@@ -4,7 +4,7 @@ import { Box, Button } from "@mui/material";
 
 function TracksView() {
   const context = useContext(GlobalContext);
-  const tracks = context.playlistTracks;
+  const tracks = context.tracks;
   console.log(tracks);
 
   return (

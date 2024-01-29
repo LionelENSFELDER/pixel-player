@@ -34,7 +34,7 @@ export async function redirectToAuthCodeFlow(clientId: string) {
   params.append("client_id", clientId);
   params.append("response_type", "code");
   params.append("redirect_uri", "http://localhost:5173/loginCallback");
-  params.append("scope", "user-read-private user-read-email");
+  params.append("scope", "user-read-private user-read-email user-library-read");
   params.append("code_challenge_method", "S256");
   params.append("code_challenge", challenge);
 
@@ -120,6 +120,47 @@ export const getToken = () => {
   }
 };
 
+// https://api.spotify.com/v1/playlists/{playlist_id}
+// https://api.spotify.com/v1/albums/{id}
+// https://api.spotify.com/v1/shows/{id}
+export async function fetchUserLibrary(token: string, name: string) {
+  const url = `https://api.spotify.com/v1/me/${name}`;
+  console.log(url);
+  const result = await fetch(url, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return await result.json();
+}
+
+export async function getUserCurrent(token: string, name: string) {
+  try {
+    const response = await fetchUserLibrary(token, name);
+    const items = response.items;
+    return items;
+  } catch (error) {
+    console.error("Error fetching playlists:", error);
+  }
+}
+
+// export async function getUserPlaylists(token: string) {
+//   try {
+//     const response = await fetchUserLibrary(token, "playlists");
+//     const items = response.items;
+//     return items;
+//   } catch (error) {
+//     console.error("Error fetching playlists:", error);
+//   }
+// }
+
+export async function fetchCategoryTracks(token: string, playlistId: string): Promise<[]> {
+  const result = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return await result.json();
+}
+
 export async function fetchPlaylists(token: string): Promise<[]> {
   const result = await fetch("https://api.spotify.com/v1/me/playlists", {
     method: "GET",
@@ -128,8 +169,8 @@ export async function fetchPlaylists(token: string): Promise<[]> {
   return await result.json();
 }
 
-export async function fetchPlaylistItems(token: string, id: string): Promise<[]> {
-  const result = await fetch(`https://api.spotify.com/v1/playlists/${id}/tracks`, {
+export async function fetchPlaylistTracks(token: string, playlistId: string): Promise<[]> {
+  const result = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   });

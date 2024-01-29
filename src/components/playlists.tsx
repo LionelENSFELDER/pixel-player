@@ -1,8 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "../context";
-import { fetchPlaylists } from "../adapters/spotify";
+import { getUserCurrent } from "../api/spotify";
 import { Box, Button } from "@mui/material";
-import { fetchPlaylistItems } from "../adapters/spotify";
 
 interface PlaylistsProps {
   token: string | null;
@@ -19,41 +18,59 @@ interface PlaylistsProps {
 // }
 
 const Playlists = ({ token }: PlaylistsProps) => {
-  const [userPlaylists, setUserPlaylists] = useState<{ name: string; href: string; id: string }[]>([]);
+  // const [playlists, setPlaylists] = useState<{ name: string; href: string; id: string }[]>([]);
   const context = useContext(GlobalContext);
+  const menu = context.menu;
+  const updateTracks = context.updateTracks;
   const setPlaylistTracks = context.updatePlaylistTracks;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (token) {
-          const response = await fetchPlaylists(token);
-          const userPlaylists = response.items;
-          const playlistsInfos = userPlaylists.map((item: { name: string; href: string }) => item);
-          setUserPlaylists(playlistsInfos);
-          console.log("userPlaylists", userPlaylists);
-        }
+        const playlists = token ? await getUserCurrent(token, "playlists") : [];
+        const albums = token ? await getUserCurrent(token, "albums") : [];
+        const shows = token ? await getUserCurrent(token, "shows") : [];
+        console.log("playlists", playlists);
+        console.log("albums", albums);
+        console.log("shows", shows);
       } catch (error) {
         console.error("Error fetching playlists:", error);
       }
     };
-
     fetchData();
   }, [token]);
 
-  const fetchPlaylistTracks = async (token: string, id: string) => {
-    if (token) {
-      try {
-        const response = await fetchPlaylistItems(token, id);
-        // console.log(response);
-        const playlistTracks = response.items;
-        setPlaylistTracks(playlistTracks);
-        console.log(playlistTracks);
-      } catch (error) {
-        console.error("Error fetching playlist tracks:", error);
-      }
-    }
-  };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       if (token) {
+  //         const response = await fetchPlaylists(token);
+  //         const playlists = response.items;
+  //         const playlistsInfos = playlists.map((item: { name: string; href: string }) => item);
+  //         // setPlaylists(playlistsInfos);
+  //         console.log("userPlaylists", playlists);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching playlists:", error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [token]);
+
+  // const fetchPlaylistTracks = async (token: string, id: string) => {
+  //   if (token) {
+  //     try {
+  //       const response = await fetchPlaylistTracks(token, id);
+  //       // console.log(response);
+  //       const playlistTracks = response.items;
+  //       setPlaylistTracks(playlistTracks);
+  //       console.log(playlistTracks);
+  //     } catch (error) {
+  //       console.error("Error fetching playlist tracks:", error);
+  //     }
+  //   }
+  // };
 
   return (
     <Box sx={{ backgroundColor: "yellow" }}>
@@ -66,18 +83,18 @@ const Playlists = ({ token }: PlaylistsProps) => {
           p: 1,
           borderLeft: "2px solid #F3F3F3",
           borderRadius: 3,
-          backgroundColor: "primary.main",
+          backgroundColor: "",
         }}
       >
-        {userPlaylists.length > 0 &&
+        {/* {playlists.length > 0 &&
           token &&
-          userPlaylists.map((item, i) => {
+          playlists.map((item, i) => {
             return (
               <Button key={i} onClick={() => fetchPlaylistTracks(token, item.id)}>
                 {item.name}
               </Button>
             );
-          })}
+          })} */}
       </Box>
     </Box>
   );
