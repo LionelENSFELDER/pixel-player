@@ -3,18 +3,18 @@ import { Grid } from "@mui/material";
 import Menu from "../components/menu";
 import { getUserCurrent } from "../api/spotify";
 import Library from "../components/library";
-import { PlayerProps, SelectedMenuType } from "../common/types";
+import { PlayerProps, SelectedMenuType, ArrayOfObject } from "../common/types";
 
 function Player({ token }: PlayerProps) {
-  const [playlists, setPlaylists] = useState([]);
-  const [albums, setAlbums] = useState([]);
-  const [shows, setShows] = useState([]);
+  const [playlists, setPlaylists] = useState<ArrayOfObject>([]);
+  const [albums, setAlbums] = useState<ArrayOfObject>([]);
+  const [shows, setShows] = useState<ArrayOfObject>([]);
   const [selectedMenu, setSelectedMenu] = useState<SelectedMenuType>("playlists");
   const handleSelectedMenu = (name: SelectedMenuType) => {
     setSelectedMenu(name);
   };
 
-  const returnDataToLibrary = () => {
+  const returnDataToLibrary = (): ArrayOfObject => {
     switch (selectedMenu) {
       case "trending":
         return playlists;
@@ -68,7 +68,7 @@ function Player({ token }: PlayerProps) {
         {token && (
           <>
             <Menu handleSelectedMenu={handleSelectedMenu} />
-            <Library data={returnDataToLibrary()} />
+            <Library data={returnDataToLibrary()} type={selectedMenu} />
             {/* <Tracks /> */}
             {/* <NowPlaying /> */}
           </>

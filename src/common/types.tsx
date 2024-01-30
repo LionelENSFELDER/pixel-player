@@ -7,6 +7,8 @@ export type GlobalContextType = {
   toggleColorMode: () => void;
 };
 
+export type ArrayOfObject = object[];
+
 export interface PlaylistsProps {
   token: string | null;
 }
@@ -17,7 +19,8 @@ export interface ListViewProps {
 }
 
 export interface LibraryProps {
-  data: object;
+  type: SelectedMenuType;
+  data: object[];
 }
 
 export interface MenuProps {
