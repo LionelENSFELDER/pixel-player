@@ -1,12 +1,6 @@
-import { useContext } from "react";
-import { GlobalContext } from "../context";
 import { Box, Button } from "@mui/material";
 
 function TracksView() {
-  const context = useContext(GlobalContext);
-  const tracks = context.tracks;
-  console.log(tracks);
-
   return (
     <>
       <Box
@@ -21,7 +15,7 @@ function TracksView() {
           height: "100%",
         }}
       >
-        {tracks.length > 0 &&
+        {/* {tracks.length > 0 &&
           tracks.map((item, i) => {
             console.log("track list item", item);
             return (
@@ -29,7 +23,7 @@ function TracksView() {
                 {item.track.name}
               </Button>
             );
-          })}
+          })} */}
       </Box>
     </>
   );

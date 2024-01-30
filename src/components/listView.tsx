@@ -1,9 +1,5 @@
 import Playlists from "../components/playlists";
-
-interface ListViewProps {
-  token: string | null;
-  view: string;
-}
+import { ListViewProps } from "../common/types";
 
 function ListView({ token, view }: ListViewProps) {
   const ListView = ({ view, token }: ListViewProps) => {

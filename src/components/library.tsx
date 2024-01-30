@@ -1,8 +1,14 @@
-import { Box, Button } from "@mui/material";
-interface LibraryProps {
-  data: [];
-}
+import { Box } from "@mui/material";
+import { useEffect, useState } from "react";
+import { LibraryProps } from "../common/types";
+
 const Library = ({ data }: LibraryProps) => {
+  const [dataToDisplay, setDataToDisplay] = useState(data);
+  console.log("dataToDisplay", dataToDisplay);
+  useEffect(() => {
+    setDataToDisplay(data);
+  }, [data]);
+
   return (
     <Box sx={{ backgroundColor: "green", width: 1 / 12, height: "100%" }}>
       <Box
@@ -17,15 +23,7 @@ const Library = ({ data }: LibraryProps) => {
           height: "100%",
         }}
       >
-        {data &&
-          data.map((item, i) => {
-            console.log(item);
-            return (
-              <Button key={i} sx={{ color: "text.primary" }} onClick={() => console.log(item)}>
-                {item}
-              </Button>
-            );
-          })}
+        <h1>Library</h1>
       </Box>
     </Box>
   );

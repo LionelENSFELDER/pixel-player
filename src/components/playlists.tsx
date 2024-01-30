@@ -1,29 +1,9 @@
-import { useEffect, useState, useContext } from "react";
-import { GlobalContext } from "../context";
+import { useEffect } from "react";
 import { getUserCurrent } from "../api/spotify";
-import { Box, Button } from "@mui/material";
-
-interface PlaylistsProps {
-  token: string | null;
-}
-
-// interface FetchedPlaylistsImage {
-//   height: string;
-//   url: string;
-//   width: string;
-// }
-
-// interface FetchedPlaylists {
-//   images: FetchedPlaylistsImage[];
-// }
+import { Box } from "@mui/material";
+import { PlaylistsProps } from "../common/types";
 
 const Playlists = ({ token }: PlaylistsProps) => {
-  // const [playlists, setPlaylists] = useState<{ name: string; href: string; id: string }[]>([]);
-  const context = useContext(GlobalContext);
-  const menu = context.menu;
-  const updateTracks = context.updateTracks;
-  const setPlaylistTracks = context.updatePlaylistTracks;
-
   useEffect(() => {
     const fetchData = async () => {
       try {
