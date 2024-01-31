@@ -1,47 +1,24 @@
 import { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
 import Menu from "../components/menu";
-import { getUserCurrent } from "../api/spotify";
+import { getUserCurrentLibrary } from "../api/spotify";
 import Library from "../components/library";
-import { PlayerProps, SelectedMenuType, ArrayOfObject } from "../common/types";
+import { PlayerProps, SelectedMenuType, LibraryObject } from "../common/types";
 
 function Player({ token }: PlayerProps) {
-  const [playlists, setPlaylists] = useState<ArrayOfObject>([]);
-  const [albums, setAlbums] = useState<ArrayOfObject>([]);
-  const [shows, setShows] = useState<ArrayOfObject>([]);
+  const [library, setLibrary] = useState<LibraryObject | null>(null);
   const [selectedMenu, setSelectedMenu] = useState<SelectedMenuType>("playlists");
   const handleSelectedMenu = (name: SelectedMenuType) => {
     setSelectedMenu(name);
   };
 
-  const returnDataToLibrary = (): ArrayOfObject => {
-    switch (selectedMenu) {
-      case "trending":
-        return playlists;
-        break;
-      case "playlists":
-        return playlists;
-        break;
-      case "albums":
-        return albums;
-        break;
-      case "shows":
-        return shows;
-        break;
-      default:
-        return playlists;
-    }
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const playlists = token ? await getUserCurrent(token, "playlists") : [];
-        const albums = token ? await getUserCurrent(token, "albums") : [];
-        const shows = token ? await getUserCurrent(token, "shows") : [];
-        setPlaylists(playlists);
-        setAlbums(albums);
-        setShows(shows);
+        const fetchedPlaylists = token && (await getUserCurrentLibrary(token, "playlists"));
+        const fetchedAlbums = token && (await getUserCurrentLibrary(token, "albums"));
+        const fetchedShows = token && (await getUserCurrentLibrary(token, "shows"));
+        setLibrary({ trending: {}, playlists: fetchedPlaylists, albums: fetchedAlbums, shows: fetchedShows });
       } catch (error) {
         console.error("Error fetching playlists:", error);
       }
@@ -65,10 +42,10 @@ function Player({ token }: PlayerProps) {
           height: 10 / 12,
         }}
       >
-        {token && (
+        {token && library !== null && (
           <>
             <Menu handleSelectedMenu={handleSelectedMenu} />
-            <Library data={returnDataToLibrary()} type={selectedMenu} />
+            <Library data={library[selectedMenu]} />
             {/* <Tracks /> */}
             {/* <NowPlaying /> */}
           </>

@@ -132,7 +132,7 @@ export async function fetchUserLibrary(token: string, name: string) {
   return await result.json();
 }
 
-export async function getUserCurrent(token: string, name: string) {
+export async function getUserCurrentLibrary(token: string, name: string) {
   try {
     const response = await fetchUserLibrary(token, name);
     const items = response.items;

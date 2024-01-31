@@ -9,6 +9,15 @@ export type GlobalContextType = {
 
 export type ArrayOfObject = object[];
 
+export interface LibraryObject {
+  trending: object;
+  playlists: object;
+  albums: object;
+  shows: object;
+}
+
+export type LibraryDataType = { [key in SelectedMenuType]: object };
+
 export interface PlaylistsProps {
   token: string | null;
 }
@@ -19,8 +28,7 @@ export interface ListViewProps {
 }
 
 export interface LibraryProps {
-  type: SelectedMenuType;
-  data: object[];
+  data: LibraryObject;
 }
 
 export interface MenuProps {
