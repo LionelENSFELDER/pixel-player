@@ -53,8 +53,8 @@ const Player = ({ token }: PlayerProps) => {
         {token && library !== null && (
           <>
             <Menu handleActiveMenu={handleActiveMenu} />
-            <Library data={library[activeMenu]} handleIdx={handleIdx} />
-            <Tracks data={Object.values(library[activeMenu])[idx]} />
+            <Library activeMenu={activeMenu} data={library[activeMenu]} handleIdx={handleIdx} />
+            <Tracks token={token} activeMenu={activeMenu} data={Object.values(library[activeMenu])[idx]} />
             {/* <NowPlaying /> */}
           </>
         )}

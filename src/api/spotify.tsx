@@ -142,12 +142,7 @@ export async function getUserCurrentLibrary(token: string, name: string) {
   }
 }
 
-export async function getTracks(token: string, libraryType: string, id: string): Promise<[]> {
-  const url =
-    libraryType === "shows"
-      ? `https://api.spotify.com/v1/${libraryType}/${id}/episodes`
-      : `https://api.spotify.com/v1/${libraryType}/${id}/tracks`;
-
+export async function getTracks(token: string, url: string): Promise<[]> {
   const result = await fetch(url, {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },

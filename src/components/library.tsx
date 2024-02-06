@@ -1,12 +1,13 @@
 import { Box, Button } from "@mui/material";
-import { LibraryObject } from "../common/types";
+import { LibraryObject, AvailableMenuType } from "../common/types";
 
 export interface LibraryProps {
+  activeMenu: AvailableMenuType;
   data: LibraryObject;
   handleIdx: (idx: number) => void;
 }
 
-const Library = ({ data, handleIdx }: LibraryProps) => {
+const Library = ({ activeMenu, data, handleIdx }: LibraryProps) => {
   return (
     <Box sx={{ backgroundColor: "green", width: 1 / 12, height: "100%" }}>
       <Box
@@ -25,17 +26,40 @@ const Library = ({ data, handleIdx }: LibraryProps) => {
         <h1>Library</h1>
         {data &&
           data.map((item, idx) => {
-            return (
-              <Button
-                key={idx}
-                onClick={() => {
-                  console.log("item idx", idx);
-                  handleIdx(idx);
-                }}
-              >
-                {item.name}
-              </Button>
-            );
+            if (activeMenu === "albums") {
+              return (
+                <Button
+                  key={idx}
+                  onClick={() => {
+                    handleIdx(idx);
+                  }}
+                >
+                  {item.album.name} - {item.album.type}
+                </Button>
+              );
+            } else if (activeMenu === "shows") {
+              return (
+                <Button
+                  key={idx}
+                  onClick={() => {
+                    handleIdx(idx);
+                  }}
+                >
+                  {item.show.name} - {item.show.type}
+                </Button>
+              );
+            } else {
+              return (
+                <Button
+                  key={idx}
+                  onClick={() => {
+                    handleIdx(idx);
+                  }}
+                >
+                  {item.name} - {item.type}
+                </Button>
+              );
+            }
           })}
       </Box>
     </Box>
