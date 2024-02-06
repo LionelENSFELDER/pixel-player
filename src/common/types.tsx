@@ -1,4 +1,4 @@
-export type SelectedMenuType = "trending" | "playlists" | "albums" | "shows";
+export type AvailableMenuType = "trending" | "playlists" | "albums" | "shows";
 
 export type GlobalContextType = {
   spotifyToken: string;
@@ -7,7 +7,7 @@ export type GlobalContextType = {
   toggleColorMode: () => void;
 };
 
-export type ArrayOfObject = object[];
+// export type ArrayOfObject = object[];
 
 export interface LibraryObject {
   trending: object;
@@ -16,7 +16,11 @@ export interface LibraryObject {
   shows: object;
 }
 
-export type LibraryDataType = { [key in SelectedMenuType]: object };
+export interface TracksProps {
+  tracks: [];
+}
+
+// export type LibraryDataType = { [key in SelectedMenuType]: object };
 
 export interface PlaylistsProps {
   token: string | null;
@@ -25,14 +29,6 @@ export interface PlaylistsProps {
 export interface ListViewProps {
   token: string | null;
   view: string;
-}
-
-export interface LibraryProps {
-  data: LibraryObject;
-}
-
-export interface MenuProps {
-  handleSelectedMenu: (name: SelectedMenuType) => void;
 }
 
 export interface PlayerProps {

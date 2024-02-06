@@ -1,6 +1,13 @@
 import { Box, Button } from "@mui/material";
+import { LibraryObject } from "../common/types.tsx";
+import { useState, useEffect } from "react";
 
-function TracksView() {
+export interface TracksProps {
+  data: { name: string };
+}
+const Tracks = ({ data }: TracksProps) => {
+  console.log("data = ", data);
+
   return (
     <>
       <Box
@@ -15,18 +22,11 @@ function TracksView() {
           height: "100%",
         }}
       >
-        {/* {tracks.length > 0 &&
-          tracks.map((item, i) => {
-            console.log("track list item", item);
-            return (
-              <Button key={i} onClick={() => console.log(item)}>
-                {item.track.name}
-              </Button>
-            );
-          })} */}
+        <h1>Tracks view !!</h1>
+        {data.name}
       </Box>
     </>
   );
-}
+};
 
-export default TracksView;
+export default Tracks;

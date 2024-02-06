@@ -1,8 +1,12 @@
 import { Box, Button } from "@mui/material";
-import { SelectedMenuType, MenuProps } from "../common/types";
+import { AvailableMenuType } from "../common/types";
 
-const Menu = ({ handleSelectedMenu }: MenuProps) => {
-  const menuItems: SelectedMenuType[] = ["trending", "playlists", "albums", "shows"];
+export interface MenuProps {
+  handleActiveMenu: (name: AvailableMenuType) => void;
+}
+
+const Menu = ({ handleActiveMenu }: MenuProps) => {
+  const menuItems: AvailableMenuType[] = ["trending", "playlists", "albums", "shows"];
 
   return (
     <Box sx={{ backgroundColor: "green", width: 1 / 12, height: "100%" }}>
@@ -19,9 +23,9 @@ const Menu = ({ handleSelectedMenu }: MenuProps) => {
         }}
       >
         {menuItems.length > 0 &&
-          menuItems.map((item: SelectedMenuType, i) => {
+          menuItems.map((item: AvailableMenuType, i) => {
             return (
-              <Button key={i} sx={{ color: "text.primary" }} onClick={() => handleSelectedMenu(item)}>
+              <Button key={i} sx={{ color: "text.primary" }} onClick={() => handleActiveMenu(item)}>
                 {item}
               </Button>
             );

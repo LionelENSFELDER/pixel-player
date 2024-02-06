@@ -3,13 +3,20 @@ import { Grid } from "@mui/material";
 import Menu from "../components/menu";
 import { getUserCurrentLibrary } from "../api/spotify";
 import Library from "../components/library";
-import { PlayerProps, SelectedMenuType, LibraryObject } from "../common/types";
+import { PlayerProps, AvailableMenuType, LibraryObject } from "../common/types";
+import Tracks from "../components/tracks";
 
-function Player({ token }: PlayerProps) {
+const Player = ({ token }: PlayerProps) => {
   const [library, setLibrary] = useState<LibraryObject | null>(null);
-  const [selectedMenu, setSelectedMenu] = useState<SelectedMenuType>("playlists");
-  const handleSelectedMenu = (name: SelectedMenuType) => {
-    setSelectedMenu(name);
+
+  const [activeMenu, setActiveMenu] = useState<AvailableMenuType>("playlists");
+  const handleActiveMenu = (name: AvailableMenuType) => {
+    setActiveMenu(name);
+  };
+
+  const [idx, setIdx] = useState<number>(0);
+  const handleIdx = (idx: number) => {
+    setIdx(idx);
   };
 
   useEffect(() => {
@@ -18,13 +25,14 @@ function Player({ token }: PlayerProps) {
         const fetchedPlaylists = token && (await getUserCurrentLibrary(token, "playlists"));
         const fetchedAlbums = token && (await getUserCurrentLibrary(token, "albums"));
         const fetchedShows = token && (await getUserCurrentLibrary(token, "shows"));
+        console.log("fetched", fetchedPlaylists, fetchedAlbums, fetchedShows);
         setLibrary({ trending: {}, playlists: fetchedPlaylists, albums: fetchedAlbums, shows: fetchedShows });
       } catch (error) {
         console.error("Error fetching playlists:", error);
       }
     };
     fetchData();
-  }, [token, selectedMenu]);
+  }, [token]);
 
   return (
     <Grid sx={{ flexGrow: 1 }}>
@@ -44,15 +52,15 @@ function Player({ token }: PlayerProps) {
       >
         {token && library !== null && (
           <>
-            <Menu handleSelectedMenu={handleSelectedMenu} />
-            <Library data={library[selectedMenu]} />
-            {/* <Tracks /> */}
+            <Menu handleActiveMenu={handleActiveMenu} />
+            <Library data={library[activeMenu]} handleIdx={handleIdx} />
+            <Tracks data={Object.values(library[activeMenu])[idx]} />
             {/* <NowPlaying /> */}
           </>
         )}
       </Grid>
     </Grid>
   );
-}
+};
 
 export default Player;

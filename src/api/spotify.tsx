@@ -142,26 +142,31 @@ export async function getUserCurrentLibrary(token: string, name: string) {
   }
 }
 
-export async function fetchCategoryTracks(token: string, playlistId: string): Promise<[]> {
-  const result = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+export async function getTracks(token: string, libraryType: string, id: string): Promise<[]> {
+  const url =
+    libraryType === "shows"
+      ? `https://api.spotify.com/v1/${libraryType}/${id}/episodes`
+      : `https://api.spotify.com/v1/${libraryType}/${id}/tracks`;
+
+  const result = await fetch(url, {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   });
   return await result.json();
 }
 
-export async function fetchPlaylists(token: string): Promise<[]> {
-  const result = await fetch("https://api.spotify.com/v1/me/playlists", {
-    method: "GET",
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return await result.json();
-}
+// export async function fetchCategoryTracks(token: string, playlistId: string): Promise<[]> {
+//   const result = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+//     method: "GET",
+//     headers: { Authorization: `Bearer ${token}` },
+//   });
+//   return await result.json();
+// }
 
-export async function fetchPlaylistTracks(token: string, playlistId: string): Promise<[]> {
-  const result = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
-    method: "GET",
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return await result.json();
-}
+// export async function fetchPlaylists(token: string): Promise<[]> {
+//   const result = await fetch("https://api.spotify.com/v1/me/playlists", {
+//     method: "GET",
+//     headers: { Authorization: `Bearer ${token}` },
+//   });
+//   return await result.json();
+// }
