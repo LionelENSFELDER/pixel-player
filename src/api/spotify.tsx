@@ -90,7 +90,7 @@ export function populateUI(profile: UserProfileInterface) {
   console.log("profile.display_name", profile.display_name);
 }
 
-export const isSpotifyToken = () => {
+export const isSpotifyToken = (): boolean => {
   const token = localStorage.getItem("spotifyToken");
   if (token) {
     return true;
@@ -120,9 +120,6 @@ export const getToken = () => {
   }
 };
 
-// https://api.spotify.com/v1/playlists/{playlist_id}
-// https://api.spotify.com/v1/albums/{id}
-// https://api.spotify.com/v1/shows/{id}
 export async function fetchUserLibrary(token: string, name: string) {
   const url = `https://api.spotify.com/v1/me/${name}`;
   const result = await fetch(url, {
@@ -142,26 +139,10 @@ export async function getUserCurrentLibrary(token: string, name: string) {
   }
 }
 
-export async function getTracks(token: string, url: string): Promise<[]> {
+export async function getTracks(token: string, url: string): Promise<any> {
   const result = await fetch(url, {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   });
   return await result.json();
 }
-
-// export async function fetchCategoryTracks(token: string, playlistId: string): Promise<[]> {
-//   const result = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
-//     method: "GET",
-//     headers: { Authorization: `Bearer ${token}` },
-//   });
-//   return await result.json();
-// }
-
-// export async function fetchPlaylists(token: string): Promise<[]> {
-//   const result = await fetch("https://api.spotify.com/v1/me/playlists", {
-//     method: "GET",
-//     headers: { Authorization: `Bearer ${token}` },
-//   });
-//   return await result.json();
-// }

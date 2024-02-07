@@ -9,7 +9,7 @@ import Tracks from "../components/tracks";
 const Player = ({ token }: PlayerProps) => {
   const [library, setLibrary] = useState<LibraryObject | null>(null);
 
-  const [activeMenu, setActiveMenu] = useState<AvailableMenuType>("playlists");
+  const [activeMenu, setActiveMenu] = useState<AvailableMenuType>("albums");
   const handleActiveMenu = (name: AvailableMenuType) => {
     setActiveMenu(name);
   };
@@ -25,7 +25,7 @@ const Player = ({ token }: PlayerProps) => {
         const fetchedPlaylists = token && (await getUserCurrentLibrary(token, "playlists"));
         const fetchedAlbums = token && (await getUserCurrentLibrary(token, "albums"));
         const fetchedShows = token && (await getUserCurrentLibrary(token, "shows"));
-        console.log("fetched", fetchedPlaylists, fetchedAlbums, fetchedShows);
+
         setLibrary({ trending: {}, playlists: fetchedPlaylists, albums: fetchedAlbums, shows: fetchedShows });
       } catch (error) {
         console.error("Error fetching playlists:", error);
@@ -37,7 +37,6 @@ const Player = ({ token }: PlayerProps) => {
   return (
     <Grid sx={{ flexGrow: 1 }}>
       <Grid
-        spacing={1}
         id="player-container"
         sx={{
           boxSizing: "border-box",
