@@ -5,6 +5,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import GraphicEqIcon from "@mui/icons-material/GraphicEq";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+import AvatarImage from "../assets/avatar.jpg";
 
 function NavBar() {
   const context = useContext(GlobalContext);
@@ -128,7 +129,7 @@ function NavBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src={AvatarImage} />
               </IconButton>
             </Tooltip>
             <Menu
