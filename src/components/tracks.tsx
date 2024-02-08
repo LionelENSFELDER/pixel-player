@@ -4,95 +4,14 @@ import { useState, useEffect } from "react";
 import { getTracks } from "../api/spotify.tsx";
 import { getValueByKey } from "../common/utils.tsx";
 
-interface ExternalUrl {
-  spotify: string;
-}
-
-interface PlaylistTrack {
-  added_at: string;
-  added_by: {
-    external_urls: ExternalUrl;
-    href: string;
-    id: string;
-    type: string;
-    uri: string;
-  };
-  is_local: boolean;
-  primary_color: string | null;
-  track: {
-    album: Album;
-    artists: Artist[];
-    available_markets: string[];
-    disc_number: number;
-    duration_ms: number;
-    explicit: boolean;
-    external_ids: {
-      isrc: string;
-    };
-    external_urls: ExternalUrl;
-    href: string;
-    id: string;
-    name: string;
-    popularity: number;
-    preview_url: string | null;
-    track_number: number;
-    type: string;
-    uri: string;
-  };
-}
-
-interface Album {
-  album_type: string;
-  artists: Artist[];
-  available_markets: string[];
-  external_urls: ExternalUrl;
-  href: string;
-  id: string;
-  images: Image[];
-  name: string;
-  release_date: string;
-  release_date_precision: string;
-  total_tracks: number;
-  type: string;
-  uri: string;
-}
-
-interface AlbumTrack {
-  artists: Artist[];
-  available_markets: string[];
-  disc_number: number;
-  duration_ms: number;
-  explicit: boolean;
-  external_urls: ExternalUrl;
-  href: string;
-  id: string;
-  name: string;
-  preview_url: string | null;
-  track_number: number;
-  type: string;
-  uri: string;
-}
-
-interface Artist {
-  external_urls: ExternalUrl;
-  href: string;
-  id: string;
-  name: string;
-  type: string;
-  uri: string;
-}
-
-interface Image {
-  height: number;
-  url: string;
-  width: number;
-}
-
 interface dataInterface {
   added_at: string;
+  name: string;
+  href: string;
   tracks: {
     href: string;
     total: string;
+    name: string;
   };
   album: {
     href: string;
@@ -100,16 +19,9 @@ interface dataInterface {
   show: {
     href: string;
   };
-}
-
-interface PlaylistTracksResponse {
-  href: string;
-  items: PlaylistTrack[];
-  limit: number;
-  next: string | null;
-  offset: number;
-  previous: string | null;
-  total: number;
+  track: {
+    name: string;
+  };
 }
 
 export interface TracksProps {
@@ -118,35 +30,45 @@ export interface TracksProps {
   data: dataInterface;
 }
 const Tracks = ({ token, data, activeMenu }: TracksProps) => {
-  const [tracks, setTrack] = useState<any>([]);
+  if (!data) {
+    throw new Error("No data passed !");
+  }
+
+  const [tracks, setTrack] = useState<any[]>([]);
 
   useEffect(() => {
-    const url = () => {
-      if (data) {
-        if (activeMenu === "albums") {
-          return data.album.href;
-        } else if (activeMenu === "shows") {
-          return data.show.href + "/episodes";
-        } else {
-          return data.tracks.href;
-        }
-      }
-    };
-    const fetchData = async () => {
-      try {
-        if (data) {
-          const fetchedTracks = token && (await getTracks(token, url()));
-          if (fetchedTracks !== null && fetchedTracks !== undefined) {
-            const tracksObj = getValueByKey(fetchedTracks, "items");
-            setTrack(tracksObj);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching tracks:", error);
-      }
-    };
-    fetchData();
+    fetchTracks();
   }, [token, data, activeMenu]);
+
+  const fetchTracks = async () => {
+    try {
+      const fullTracksObj = token && (await getTracks(token, returnTracksUrl()));
+      if (!fullTracksObj) {
+        throw new Error("Erro when fetch tracks !");
+      } else {
+        setTrack(getValueByKey(fullTracksObj, "items"));
+      }
+    } catch (error) {
+      console.error("Error fetching tracks:", error);
+    }
+  };
+
+  const returnTracksUrl = () => {
+    switch (activeMenu) {
+      case "albums":
+        return data.album.href;
+        break;
+      case "shows":
+        return data.show.href + "/episodes";
+        break;
+      case "playlists":
+        return data.tracks.href;
+        break;
+      default:
+        return data.href;
+        break;
+    }
+  };
 
   return (
     <>
@@ -163,16 +85,13 @@ const Tracks = ({ token, data, activeMenu }: TracksProps) => {
         }}
       >
         <h1>Tracks view !!</h1>
-        {tracks &&
-          activeMenu !== "playlists" &&
-          tracks.map((el, idx) => {
-            return <span>{el.name}</span>;
-          })}
-        {tracks &&
-          activeMenu === "playlists" &&
-          tracks.map((el, idx) => {
-            return <span>{el.track.name}</span>;
-          })}
+
+        {tracks.map((el, idx) => {
+          if (activeMenu === "playlists" && el.track) {
+            return <span key={idx}>{el.track.name}</span>;
+          }
+          return <span key={idx}>{el.name}</span>;
+        })}
       </Box>
     </>
   );

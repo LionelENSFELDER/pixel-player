@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { Grid } from "@mui/material";
 import Menu from "../components/menu";
-import { getUserCurrentLibrary } from "../api/spotify";
 import Library from "../components/library";
-import { PlayerProps, AvailableMenuType, LibraryObject } from "../common/types";
 import Tracks from "../components/tracks";
+import { getUserCurrentLibrary } from "../api/spotify";
+import { PlayerProps, AvailableMenuType, LibraryObject } from "../common/types";
+import { Grid } from "@mui/material";
 
 const Player = ({ token }: PlayerProps) => {
   const [library, setLibrary] = useState<LibraryObject | null>(null);
@@ -22,11 +22,11 @@ const Player = ({ token }: PlayerProps) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetchedPlaylists = token && (await getUserCurrentLibrary(token, "playlists"));
-        const fetchedAlbums = token && (await getUserCurrentLibrary(token, "albums"));
-        const fetchedShows = token && (await getUserCurrentLibrary(token, "shows"));
+        const playlists = token && (await getUserCurrentLibrary(token, "playlists"));
+        const albums = token && (await getUserCurrentLibrary(token, "albums"));
+        const shows = token && (await getUserCurrentLibrary(token, "shows"));
 
-        setLibrary({ trending: {}, playlists: fetchedPlaylists, albums: fetchedAlbums, shows: fetchedShows });
+        setLibrary({ trending: {}, playlists: playlists, albums: albums, shows: shows });
       } catch (error) {
         console.error("Error fetching playlists:", error);
       }
