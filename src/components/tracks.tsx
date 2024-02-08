@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { TracksProps } from "../common/types.tsx";
+import { TracksProps } from "../types.tsx";
 import { getTracks } from "../api/spotify.tsx";
-import { getValueByKey } from "../common/utils.tsx";
+import { getValueByKey } from "../utils/getValueByKey.tsx";
 import { Box } from "@mui/material";
 
 const Tracks = ({ token, data, activeMenu }: TracksProps) => {
@@ -57,12 +57,13 @@ const Tracks = ({ token, data, activeMenu }: TracksProps) => {
           borderLef: "2px solid #FFF",
           backgroundColor: "",
           height: "100%",
+          color: "text.primary",
         }}
       >
-        <h1>Tracks view !!</h1>
+        <h2>Tracks</h2>
 
         {tracks.map((el, idx) => {
-          if (activeMenu === "playlists" && el.track) {
+          if (el.track) {
             return <span key={idx}>{el.track.name}</span>;
           }
           return <span key={idx}>{el.name}</span>;

@@ -1,10 +1,10 @@
-import { ThemeProvider } from "@mui/material";
 import { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "./context";
-import Login from "./pages/login";
-import Player from "./pages/Player";
+import Player from "./views/Player.tsx";
+import Login from "./views/login.tsx";
 import { isSpotifyToken, getToken } from "./api/spotify.tsx";
-import { MainContainer } from "./components/containers";
+import { ThemeProvider } from "@mui/material";
+
 import LightTheme from "./themes/light.tsx";
 import DarkTheme from "./themes/dark.tsx";
 
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <ThemeProvider theme={colorMode === "light" ? LightTheme : DarkTheme}>
-      <MainContainer>{spotifyToken ? <Player token={getToken()} /> : <Login />}</MainContainer>
+      {spotifyToken ? <Player token={getToken()} /> : <Login />}
     </ThemeProvider>
   );
 }

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import Menu from "../components/menu";
 import Library from "../components/library";
+import Category from "../components/category";
 import Tracks from "../components/tracks";
 import { getUserCurrentLibrary } from "../api/spotify";
-import { PlayerProps, AvailableMenuType, LibraryObject } from "../common/types";
-import { Grid } from "@mui/material";
+import { PlayerProps, AvailableMenuType, LibraryObject } from "../types";
+import { Box, Container, Grid } from "@mui/material";
+import NavBar from "../components/navbar";
 
 const Player = ({ token }: PlayerProps) => {
   const [library, setLibrary] = useState<LibraryObject | null>(null);
@@ -35,30 +36,32 @@ const Player = ({ token }: PlayerProps) => {
   }, [token]);
 
   return (
-    <Grid sx={{ flexGrow: 1 }}>
-      <Grid
-        id="player-container"
-        sx={{
-          boxSizing: "border-box",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-start",
-          alignItems: "flex-start",
-          backgroundColor: "pink",
-          width: 1,
-          height: 10 / 12,
-        }}
-      >
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <NavBar />
+      <Container maxWidth={false} sx={{ backgroundColor: "yellow", height: "70%" }}>
         {token && library !== null && (
-          <>
-            <Menu handleActiveMenu={handleActiveMenu} />
-            <Library activeMenu={activeMenu} data={library[activeMenu]} handleIdx={handleIdx} />
-            <Tracks token={token} activeMenu={activeMenu} data={Object.values(library[activeMenu])[idx]} />
-            {/* <NowPlaying /> */}
-          </>
+          <Grid container spacing={2}>
+            <Grid item xs={2}>
+              <Library handleActiveMenu={handleActiveMenu} />
+            </Grid>
+            <Grid item xs={3}>
+              <Category activeMenu={activeMenu} data={library[activeMenu]} handleIdx={handleIdx} />
+            </Grid>
+            <Grid item xs={7}>
+              <Tracks
+                token={token}
+                activeMenu={activeMenu}
+                data={Object.values(library[activeMenu])[idx]}
+                tracks={[]}
+              />
+            </Grid>
+          </Grid>
         )}
-      </Grid>
-    </Grid>
+      </Container>
+      <Box sx={{ backgroundColor: "green", height: "50%" }}>
+        <h1>Now playing...</h1>
+      </Box>
+    </Box>
   );
 };
 

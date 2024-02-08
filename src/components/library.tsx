@@ -1,67 +1,57 @@
 import { Box, Button } from "@mui/material";
-import { LibraryObject, AvailableMenuType } from "../common/types";
+import { AvailableMenuType } from "../types";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import AlbumIcon from "@mui/icons-material/Album";
+import MicIcon from "@mui/icons-material/Mic";
+import WhatshotIcon from "@mui/icons-material/Whatshot";
 
-export interface LibraryProps {
-  activeMenu: AvailableMenuType;
-  data: LibraryObject;
-  handleIdx: (idx: number) => void;
+export interface MenuProps {
+  handleActiveMenu: (name: AvailableMenuType) => void;
 }
 
-const Library = ({ activeMenu, data, handleIdx }: LibraryProps) => {
+const Library = ({ handleActiveMenu }: MenuProps) => {
+  const menuItems: AvailableMenuType[] = ["trending", "playlists", "albums", "shows"];
+
   return (
-    <Box sx={{ backgroundColor: "green", width: 1 / 12, height: "100%" }}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "flex-start",
-          p: 1,
-          borderLef: "2px solid #FFFF",
-          backgroundColor: "white",
-          height: "100%",
-          width: "100%",
-        }}
-      >
-        <h1>Library</h1>
-        {data &&
-          data.map((item, idx) => {
-            if (activeMenu === "albums") {
-              return (
-                <Button
-                  key={idx}
-                  onClick={() => {
-                    handleIdx(idx);
-                  }}
-                >
-                  {item.album.name} - {item.album.type}
-                </Button>
-              );
-            } else if (activeMenu === "shows") {
-              return (
-                <Button
-                  key={idx}
-                  onClick={() => {
-                    handleIdx(idx);
-                  }}
-                >
-                  {item.show.name} - {item.show.type}
-                </Button>
-              );
-            } else {
-              return (
-                <Button
-                  key={idx}
-                  onClick={() => {
-                    handleIdx(idx);
-                  }}
-                >
-                  {item.name} - {item.type}
-                </Button>
-              );
-            }
-          })}
-      </Box>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        p: 1,
+        borderLeft: "2px solid grey.500",
+        backgroundColor: "background.default",
+      }}
+    >
+      <h2>Library</h2>
+      {menuItems.length > 0 &&
+        menuItems.map((item: AvailableMenuType, i) => {
+          return (
+            <Button
+              key={i}
+              size="large"
+              variant="text"
+              sx={{ color: "text.primary" }}
+              onClick={() => handleActiveMenu(item)}
+              startIcon={
+                item === "playlists" ? (
+                  <FavoriteIcon />
+                ) : item === "albums" ? (
+                  <AlbumIcon />
+                ) : item === "shows" ? (
+                  <MicIcon />
+                ) : item === "trending" ? (
+                  <WhatshotIcon />
+                ) : (
+                  <WhatshotIcon />
+                )
+              }
+            >
+              {item}
+            </Button>
+          );
+        })}
     </Box>
   );
 };

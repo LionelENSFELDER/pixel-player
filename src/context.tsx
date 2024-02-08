@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { GlobalContextType } from "./common/types";
+import { GlobalContextType } from "./types";
 
 const defaultContextValue = {
   spotifyToken: "",
