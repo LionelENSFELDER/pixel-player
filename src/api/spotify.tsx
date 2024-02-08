@@ -91,22 +91,17 @@ export function populateUI(profile: UserProfileInterface) {
 }
 
 export const isSpotifyToken = (): boolean => {
-  const token = localStorage.getItem("spotifyToken");
-  if (token) {
-    return true;
-  }
-  return false;
+  return localStorage.getItem("spotifyToken") ? true : false;
 };
 
 export const setToken = async (code: string) => {
   try {
     const response = await getAccessToken(clientId, code);
-
     if (response === undefined) {
       console.error("getAccessToken returned undefined");
-    } else {
-      localStorage.setItem("spotifyToken", response);
+      return;
     }
+    localStorage.setItem("spotifyToken", response);
   } catch (error) {
     console.error("Error setting spotifyToken:", error);
   }

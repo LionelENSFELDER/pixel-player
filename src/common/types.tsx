@@ -18,15 +18,6 @@ export interface TracksProps {
   tracks: [];
 }
 
-export interface PlaylistsProps {
-  token: string | null;
-}
-
-export interface ListViewProps {
-  token: string | null;
-  view: string;
-}
-
 export interface PlayerProps {
   token: string | null;
 }
@@ -35,13 +26,28 @@ export interface ContainerProps {
   children: string | JSX.Element | JSX.Element[];
 }
 
-export interface BaseContainerProps {
-  children: string | JSX.Element | JSX.Element[];
-  direction: string;
-  justify: string;
-  align: string;
-  radius: number;
-  background: string;
-  border: string;
-  width: number;
+export interface TracksProps {
+  token: string;
+  activeMenu: AvailableMenuType;
+  data: TracksDataInterface;
+}
+
+export interface TracksDataInterface {
+  added_at: string;
+  name: string;
+  href: string;
+  tracks: {
+    href: string;
+    total: string;
+    name: string;
+  };
+  album: {
+    href: string;
+  };
+  show: {
+    href: string;
+  };
+  track: {
+    name: string;
+  };
 }

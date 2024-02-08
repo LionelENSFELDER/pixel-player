@@ -1,34 +1,9 @@
-import { Box } from "@mui/material";
-import { AvailableMenuType } from "../common/types.tsx";
 import { useState, useEffect } from "react";
+import { TracksProps } from "../common/types.tsx";
 import { getTracks } from "../api/spotify.tsx";
 import { getValueByKey } from "../common/utils.tsx";
+import { Box } from "@mui/material";
 
-interface dataInterface {
-  added_at: string;
-  name: string;
-  href: string;
-  tracks: {
-    href: string;
-    total: string;
-    name: string;
-  };
-  album: {
-    href: string;
-  };
-  show: {
-    href: string;
-  };
-  track: {
-    name: string;
-  };
-}
-
-export interface TracksProps {
-  token: string;
-  activeMenu: AvailableMenuType;
-  data: dataInterface;
-}
 const Tracks = ({ token, data, activeMenu }: TracksProps) => {
   if (!data) {
     throw new Error("No data passed !");
