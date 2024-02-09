@@ -16,12 +16,15 @@ const Library = ({ handleActiveMenu }: MenuProps) => {
     <Box
       sx={{
         display: "flex",
+        flex: 1,
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "flex-start",
+        flexGrow: 1,
+        height: "100%",
         p: 1,
         borderLeft: "2px solid grey.500",
-        backgroundColor: "background.default",
+        backgroundColor: "pink",
       }}
     >
       <h2>Library</h2>

@@ -18,6 +18,9 @@ const Category = ({ activeMenu, data, handleIdx }: LibraryProps) => {
         p: 1,
         borderLef: "2px solid #FFFF",
         color: "text.primary",
+        backgroundColor: "blue",
+        flexGrow: 1,
+        height: "100%",
       }}
     >
       <h2>{activeMenu}</h2>

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { GlobalContextProvider } from "./context";
 import Login from "./views/login.tsx";
-import LoginCallback from "./views/LoginCallback.tsx";
+import LoginCallback from "./views/loginCallback.tsx";
 import App from "./App.tsx";
 import "./index.css";
 import CssBaseline from "@mui/material/CssBaseline";

@@ -36,18 +36,18 @@ const Player = ({ token }: PlayerProps) => {
   }, [token]);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", backgroundColor: "yellow", flexGrow: 1, height: "100vh" }}>
       <NavBar />
-      <Container maxWidth={false} sx={{ backgroundColor: "yellow", height: "70%" }}>
+      <Container maxWidth={false} sx={{ p: 0, backgroundColor: "yellow", flexGrow: 1, height: 1 }}>
         {token && library !== null && (
-          <Grid container spacing={2}>
-            <Grid item xs={2}>
+          <Grid container spacing={2} height={1}>
+            <Grid item xs={1}>
               <Library handleActiveMenu={handleActiveMenu} />
             </Grid>
             <Grid item xs={3}>
               <Category activeMenu={activeMenu} data={library[activeMenu]} handleIdx={handleIdx} />
             </Grid>
-            <Grid item xs={7}>
+            <Grid item xs={3}>
               <Tracks
                 token={token}
                 activeMenu={activeMenu}
@@ -55,12 +55,14 @@ const Player = ({ token }: PlayerProps) => {
                 tracks={[]}
               />
             </Grid>
+            <Grid item xs={5}>
+              <Box sx={{ m: 0, backgroundColor: "green", flexGrow: 1, height: "100%" }}>
+                <span>Now playing...</span>
+              </Box>
+            </Grid>
           </Grid>
         )}
       </Container>
-      <Box sx={{ backgroundColor: "green", height: "50%" }}>
-        <h1>Now playing...</h1>
-      </Box>
     </Box>
   );
 };

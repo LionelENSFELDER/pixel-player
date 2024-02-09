@@ -53,10 +53,11 @@ const Tracks = ({ token, data, activeMenu }: TracksProps) => {
           flexDirection: "column",
           justifyContent: "flex-start",
           alignItems: "flex-start",
+          flexGrow: 1,
+          height: "100%",
           p: 1,
           borderLef: "2px solid #FFF",
-          backgroundColor: "",
-          height: "100%",
+          backgroundColor: "red",
           color: "text.primary",
         }}
       >
