@@ -1,3 +1,8 @@
-div {
+* {
   box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "retrocompute";
+  src: url("assets/font/retrocompute.ttf");
 }

@@ -1,5 +1,8 @@
 import { createTheme } from "@mui/material";
 const LightTheme = createTheme({
+  typography: {
+    fontFamily: ["retrocompute", "sans-serif"].join(","),
+  },
   palette: {
     mode: "light",
     primary: {
