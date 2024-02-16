@@ -10,3 +10,7 @@
   font-family: "retrocompute";
   src: url("assets/font/retrocompute.ttf");
 }
+
+body {
+  font-family: retrocompute, sans-serif;
+}

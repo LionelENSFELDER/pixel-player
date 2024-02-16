@@ -17,7 +17,8 @@ const Tracks = ({ token, data, activeMenu }: TracksProps) => {
 
   const fetchTracks = async () => {
     try {
-      const fullTracksObj = token && (await getTracks(token, returnTracksUrl()));
+      const fullTracksObj =
+        token && (await getTracks(token, returnTracksUrl()));
       if (!fullTracksObj) {
         throw new Error("Erro when fetch tracks !");
       } else {
@@ -47,29 +48,29 @@ const Tracks = ({ token, data, activeMenu }: TracksProps) => {
 
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "flex-start",
-          flexGrow: 1,
-          height: "100%",
-          p: 1,
-          borderLef: "2px solid #FFF",
-          backgroundColor: "red",
-          color: "text.primary",
-        }}
-      >
-        <h2>Tracks</h2>
-
+      <div className="w-96 bg-white dark:bg-black flex flex-col justify-top items-center">
+        <h2 className="text-black dark:text-white">tracks</h2>
         {tracks.map((el, idx) => {
           if (el.track) {
-            return <span key={idx}>{el.track.name}</span>;
+            return (
+              <button
+                key={idx}
+                className="border-0 bg-transparent font-large text-lg px-5 py-2.5 text-center inline-flex items-center me-2 mb-0.5 text-black dark:text-white"
+              >
+                {el.track.name}
+              </button>
+            );
           }
-          return <span key={idx}>{el.name}</span>;
+          return (
+            <button
+              className="border-0 bg-transparent font-large text-lg px-5 py-2.5 text-center inline-flex items-center me-2 mb-0.5 text-black dark:text-white"
+              key={idx}
+            >
+              {el.name}
+            </button>
+          );
         })}
-      </Box>
+      </div>
     </>
   );
 };

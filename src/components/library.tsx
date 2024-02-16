@@ -1,61 +1,54 @@
-import { Box, Button } from "@mui/material";
 import { AvailableMenuType } from "../types";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import AlbumIcon from "@mui/icons-material/Album";
-import MicIcon from "@mui/icons-material/Mic";
-import WhatshotIcon from "@mui/icons-material/Whatshot";
+import { BsFileEarmarkMusicFill } from "react-icons/bs";
+import { RiAlbumFill } from "react-icons/ri";
+import { FaMicrophoneAlt } from "react-icons/fa";
+import { FaFire } from "react-icons/fa6";
 
 export interface MenuProps {
   handleActiveMenu: (name: AvailableMenuType) => void;
 }
 
+export interface LibraryItemProps {
+  item: AvailableMenuType;
+}
+
 const Library = ({ handleActiveMenu }: MenuProps) => {
-  const menuItems: AvailableMenuType[] = ["trending", "playlists", "albums", "shows"];
+  const LibraryItem = ({ item }: LibraryItemProps) => {
+    return (
+      <button
+        onClick={() => handleActiveMenu(item)}
+        type="button"
+        className="border-0 bg-transparent font-large text-lg px-5 py-2.5 text-center inline-flex items-center me-2 mb-8 text-black dark:text-white"
+      >
+        {item === "trending" ? (
+          <FaFire size={30} />
+        ) : item === "playlists" ? (
+          <BsFileEarmarkMusicFill size={30} />
+        ) : item === "albums" ? (
+          <RiAlbumFill size={30} />
+        ) : item === "shows" ? (
+          <FaMicrophoneAlt size={30} />
+        ) : (
+          <BsFileEarmarkMusicFill size={30} />
+        )}
+      </button>
+    );
+  };
+
+  const menuItems: AvailableMenuType[] = [
+    "trending",
+    "playlists",
+    "albums",
+    "shows",
+  ];
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flex: 1,
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        flexGrow: 1,
-        height: "100%",
-        p: 1,
-        borderLeft: "2px solid grey.500",
-        backgroundColor: "pink",
-      }}
-    >
-      <h2>Library</h2>
+    <div className="flex flex-col justify-top items-center w-20 bg-white dark:bg-black">
       {menuItems.length > 0 &&
-        menuItems.map((item: AvailableMenuType, i) => {
-          return (
-            <Button
-              key={i}
-              size="large"
-              variant="text"
-              sx={{ color: "text.primary" }}
-              onClick={() => handleActiveMenu(item)}
-              startIcon={
-                item === "playlists" ? (
-                  <FavoriteIcon />
-                ) : item === "albums" ? (
-                  <AlbumIcon />
-                ) : item === "shows" ? (
-                  <MicIcon />
-                ) : item === "trending" ? (
-                  <WhatshotIcon />
-                ) : (
-                  <WhatshotIcon />
-                )
-              }
-            >
-              {item}
-            </Button>
-          );
+        menuItems.map((item: AvailableMenuType) => {
+          return <LibraryItem item={item} />;
         })}
-    </Box>
+    </div>
   );
 };
 

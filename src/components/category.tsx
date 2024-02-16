@@ -9,36 +9,29 @@ export interface LibraryProps {
 
 const Category = ({ activeMenu, data, handleIdx }: LibraryProps) => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        p: 1,
-        borderLef: "2px solid #FFFF",
-        color: "text.primary",
-        backgroundColor: "blue",
-        flexGrow: 1,
-        height: "100%",
-      }}
-    >
-      <h2>{activeMenu}</h2>
-      {data &&
-        data.map((item, idx) => {
-          return (
-            <Button
-              sx={{ color: "text.primary" }}
-              key={idx}
-              onClick={() => {
-                handleIdx(idx);
-              }}
-            >
-              {item.album ? item.album.name : item.show ? item.show.name : item.name}
-            </Button>
-          );
-        })}
-    </Box>
+    <>
+      <div className="flex flex-col justify-top items-center w-80 bg-white dark:bg-black">
+        <h2 className="text-black dark:text-white">{activeMenu}</h2>
+        {data &&
+          data.map((item, idx) => {
+            return (
+              <button
+                className="border-0 bg-transparent font-large text-lg px-5 py-2.5 text-center inline-flex items-center me-2 mb-8 text-black dark:text-white"
+                key={idx}
+                onClick={() => {
+                  handleIdx(idx);
+                }}
+              >
+                {item.album
+                  ? item.album.name
+                  : item.show
+                  ? item.show.name
+                  : item.name}
+              </button>
+            );
+          })}
+      </div>
+    </>
   );
 };
 
