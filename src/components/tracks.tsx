@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { TracksProps } from "../types.tsx";
 import { getTracks } from "../api/spotify.tsx";
 import { getValueByKey } from "../utils/getValueByKey.tsx";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 const Tracks = ({ token, data, activeMenu }: TracksProps) => {
   if (!data) {
@@ -17,7 +17,8 @@ const Tracks = ({ token, data, activeMenu }: TracksProps) => {
 
   const fetchTracks = async () => {
     try {
-      const fullTracksObj = token && (await getTracks(token, returnTracksUrl()));
+      const fullTracksObj =
+        token && (await getTracks(token, returnTracksUrl()));
       if (!fullTracksObj) {
         throw new Error("Erro when fetch tracks !");
       } else {
@@ -54,20 +55,30 @@ const Tracks = ({ token, data, activeMenu }: TracksProps) => {
           justifyContent: "flex-start",
           alignItems: "flex-start",
           flexGrow: 1,
-          height: "100%",
+          height: "100vh",
           p: 1,
-          borderLef: "2px solid #FFF",
-          backgroundColor: "red",
           color: "text.primary",
+          overflowY: "scroll",
         }}
       >
         <h2>Tracks</h2>
 
-        {tracks.map((el, idx) => {
-          if (el.track) {
-            return <span key={idx}>{el.track.name}</span>;
-          }
-          return <span key={idx}>{el.name}</span>;
+        {tracks.map((element, idx) => {
+          console.log(element);
+          return (
+            <Button
+              key={idx}
+              sx={{ color: "text.primary", display: "block" }}
+              onClick={() => console.log(element)}
+            >
+              <Box>{element.name}</Box>
+              {/* <Box> by {element.artists[0].name}</Box> */}
+            </Button>
+          );
+          // if (element.track) {
+          //   return <span key={idx}>{element.track.name}</span>;
+          // }
+          // return <span key={idx}>{element.name}</span>;
         })}
       </Box>
     </>

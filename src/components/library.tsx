@@ -10,7 +10,12 @@ export interface MenuProps {
 }
 
 const Library = ({ handleActiveMenu }: MenuProps) => {
-  const menuItems: AvailableMenuType[] = ["trending", "playlists", "albums", "shows"];
+  const menuItems: AvailableMenuType[] = [
+    "trending",
+    "playlists",
+    "albums",
+    "shows",
+  ];
 
   return (
     <Box
@@ -24,7 +29,7 @@ const Library = ({ handleActiveMenu }: MenuProps) => {
         height: "100%",
         p: 1,
         borderLeft: "2px solid grey.500",
-        backgroundColor: "pink",
+        color: "text.primary",
       }}
     >
       <h2>Library</h2>

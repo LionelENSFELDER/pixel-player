@@ -18,7 +18,6 @@ const Category = ({ activeMenu, data, handleIdx }: LibraryProps) => {
         p: 1,
         borderLef: "2px solid #FFFF",
         color: "text.primary",
-        backgroundColor: "blue",
         flexGrow: 1,
         height: "100%",
       }}
@@ -26,6 +25,7 @@ const Category = ({ activeMenu, data, handleIdx }: LibraryProps) => {
       <h2>{activeMenu}</h2>
       {data &&
         data.map((item, idx) => {
+          console.log(item);
           return (
             <Button
               sx={{ color: "text.primary" }}
@@ -34,7 +34,24 @@ const Category = ({ activeMenu, data, handleIdx }: LibraryProps) => {
                 handleIdx(idx);
               }}
             >
-              {item.album ? item.album.name : item.show ? item.show.name : item.name}
+              <Box
+                component="img"
+                src={
+                  item.images
+                    ? item.images[2].url
+                    : item.album
+                    ? item.album.images[2].url
+                    : item.show
+                    ? item.show.images[2].url
+                    : "../assets/img/placeholder"
+                }
+                sx={{}}
+              />
+              {item.album
+                ? item.album.name
+                : item.show
+                ? item.show.name
+                : item.name}
             </Button>
           );
         })}

@@ -23,11 +23,17 @@ const Player = ({ token }: PlayerProps) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const playlists = token && (await getUserCurrentLibrary(token, "playlists"));
+        const playlists =
+          token && (await getUserCurrentLibrary(token, "playlists"));
         const albums = token && (await getUserCurrentLibrary(token, "albums"));
         const shows = token && (await getUserCurrentLibrary(token, "shows"));
 
-        setLibrary({ trending: {}, playlists: playlists, albums: albums, shows: shows });
+        setLibrary({
+          trending: {},
+          playlists: playlists,
+          albums: albums,
+          shows: shows,
+        });
       } catch (error) {
         console.error("Error fetching playlists:", error);
       }
@@ -36,18 +42,36 @@ const Player = ({ token }: PlayerProps) => {
   }, [token]);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", backgroundColor: "yellow", flexGrow: 1, height: "100vh" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        flexGrow: 1,
+        height: "100vh",
+      }}
+    >
       <NavBar />
-      <Container maxWidth={false} sx={{ p: 0, backgroundColor: "yellow", flexGrow: 1, height: 1 }}>
+      <Container
+        maxWidth={false}
+        sx={{
+          p: 0,
+          flexGrow: 1,
+          height: "100vh",
+        }}
+      >
         {token && library !== null && (
           <Grid container spacing={2} height={1}>
-            <Grid item xs={1}>
+            <Grid item xs={4} md={1}>
               <Library handleActiveMenu={handleActiveMenu} />
             </Grid>
-            <Grid item xs={3}>
-              <Category activeMenu={activeMenu} data={library[activeMenu]} handleIdx={handleIdx} />
+            <Grid item xs={4} md={3}>
+              <Category
+                activeMenu={activeMenu}
+                data={library[activeMenu]}
+                handleIdx={handleIdx}
+              />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={4} md={3}>
               <Tracks
                 token={token}
                 activeMenu={activeMenu}
@@ -55,8 +79,14 @@ const Player = ({ token }: PlayerProps) => {
                 tracks={[]}
               />
             </Grid>
-            <Grid item xs={5}>
-              <Box sx={{ m: 0, backgroundColor: "green", flexGrow: 1, height: "100%" }}>
+            <Grid item xs={12} md={5}>
+              <Box
+                sx={{
+                  m: 0,
+                  flexGrow: 1,
+                  height: "100%",
+                }}
+              >
                 <span>Now playing...</span>
               </Box>
             </Grid>
