@@ -10,15 +10,16 @@ import {
   Avatar,
   Tooltip,
   InputBase,
+  Button,
 } from "@mui/material";
 import { GlobalContext } from "../context";
 import MenuIcon from "@mui/icons-material/Menu";
 import GraphicEqIcon from "@mui/icons-material/GraphicEq";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
+
 import AvatarImage from "../assets/avatar.jpg";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
+import { Sun, Moon } from "lucide-react";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -120,7 +121,10 @@ function NavBar() {
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase placeholder="Search…" inputProps={{ "aria-label": "search" }} />
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />
           </Search>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -197,7 +201,9 @@ function NavBar() {
               onClose={handleCloseUserMenu}
             ></Menu>
             <Box sx={{ display: "inline-block", mx: 2 }}>
-              <FormControlLabel control={<Switch onChange={toggleColorMode} />} label={colorMode} />
+              <Button sx={{ color: "text.primary" }} onClick={toggleColorMode}>
+                {colorMode === "light" ? <Sun /> : <Moon />}
+              </Button>
             </Box>
           </Box>
         </Toolbar>

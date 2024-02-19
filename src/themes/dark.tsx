@@ -1,5 +1,8 @@
 import { createTheme } from "@mui/material";
 const DarkTheme = createTheme({
+  typography: {
+    fontFamily: ["retrocompute", "sans-serif"].join(","),
+  },
   palette: {
     mode: "dark",
     primary: {
@@ -13,6 +16,12 @@ const DarkTheme = createTheme({
       light: "rgb(140, 196, 179)",
       dark: "#66ae9a",
       contrastText: "#fff",
+    },
+    text: {
+      primary: "#FFF",
+    },
+    background: {
+      default: "#000",
     },
   },
 });

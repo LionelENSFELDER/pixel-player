@@ -48,6 +48,8 @@ const Player = ({ token }: PlayerProps) => {
         flexDirection: "column",
         flexGrow: 1,
         height: "100vh",
+        backgroundColor: "background.default",
+        color: "text.primary",
       }}
     >
       <NavBar />
@@ -60,7 +62,7 @@ const Player = ({ token }: PlayerProps) => {
         }}
       >
         {token && library !== null && (
-          <Grid container spacing={2} height={1}>
+          <Grid container spacing={1} height={1}>
             <Grid item xs={4} md={1}>
               <Library handleActiveMenu={handleActiveMenu} />
             </Grid>

@@ -30,6 +30,7 @@ const Library = ({ handleActiveMenu }: MenuProps) => {
         p: 1,
         borderLeft: "2px solid grey.500",
         color: "text.primary",
+        bgColor: "background.default",
       }}
     >
       <h2>Library</h2>
