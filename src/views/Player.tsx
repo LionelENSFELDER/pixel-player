@@ -41,9 +41,9 @@ const Player = ({ token }: PlayerProps) => {
   }, [token]);
 
   return (
-    <div className="flex flex-col bg-white dark:bg-black h-dvh p-2">
+    <div className="flex flex-col bg-white dark:bg-black h-screen p-2">
       <NavBar />
-      <div className="flex flex-row grow gap-6 bg-pink-500">
+      <div className="flex flex-row grow gap-6 bg-pink-500 overflow-clip">
         <Library handleActiveMenu={handleActiveMenu} />
         {token && library !== null && (
           <Category

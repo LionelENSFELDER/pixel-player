@@ -47,31 +47,29 @@ const Tracks = ({ token, data, activeMenu }: TracksProps) => {
   };
 
   return (
-    <>
-      <div className="w-96 bg-white dark:bg-black flex flex-col justify-top items-center">
-        <h2 className="text-black dark:text-white">tracks</h2>
-        {tracks.map((el, idx) => {
-          if (el.track) {
-            return (
-              <button
-                key={idx}
-                className="border-0 bg-transparent font-large text-lg px-5 py-2.5 text-center inline-flex items-center me-2 mb-0.5 text-black dark:text-white"
-              >
-                {el.track.name}
-              </button>
-            );
-          }
+    <div className="w-96 bg-white dark:bg-black flex flex-col justify-top items-center overflow-visible">
+      <h2 className="text-black dark:text-white">tracks</h2>
+      {tracks.map((el, idx) => {
+        if (el.track) {
           return (
             <button
-              className="border-0 bg-transparent font-large text-lg px-5 py-2.5 text-center inline-flex items-center me-2 mb-0.5 text-black dark:text-white"
               key={idx}
+              className="border-0 bg-transparent font-large text-lg px-5 py-2.5 text-center inline-flex items-center me-2 mb-0.5 text-black dark:text-white"
             >
-              {el.name}
+              {el.track.name}
             </button>
           );
-        })}
-      </div>
-    </>
+        }
+        return (
+          <button
+            className="border-0 bg-transparent font-large text-lg px-5 py-2.5 text-center inline-flex items-center me-2 mb-0.5 text-black dark:text-white"
+            key={idx}
+          >
+            {el.name}
+          </button>
+        );
+      })}
+    </div>
   );
 };
 
