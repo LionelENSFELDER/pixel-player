@@ -10,7 +10,7 @@ import NavBar from "../components/navbar";
 const Player = ({ token }: PlayerProps) => {
   const [library, setLibrary] = useState<LibraryObject | null>(null);
 
-  const [activeMenu, setActiveMenu] = useState<AvailableMenuType>("albums");
+  const [activeMenu, setActiveMenu] = useState<AvailableMenuType>("playlists");
   const handleActiveMenu = (name: AvailableMenuType) => {
     setActiveMenu(name);
   };
@@ -42,38 +42,29 @@ const Player = ({ token }: PlayerProps) => {
   }, [token]);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        flexGrow: 1,
-        height: "100vh",
-        backgroundColor: "background.default",
-        color: "text.primary",
-      }}
-    >
+    <>
       <NavBar />
       <Container
         maxWidth={false}
         sx={{
           p: 0,
-          flexGrow: 1,
-          height: "100vh",
+          scrollbarColor:
+            "theme.palette.primary.dark theme.palette.primary.main",
         }}
       >
-        {token && library !== null && (
+        {token && library !== null && library !== undefined && (
           <Grid container spacing={1} height={1}>
             <Grid item xs={4} md={1}>
               <Library handleActiveMenu={handleActiveMenu} />
             </Grid>
-            <Grid item xs={4} md={3}>
+            <Grid item xs={4} md={2}>
               <Category
                 activeMenu={activeMenu}
                 data={library[activeMenu]}
                 handleIdx={handleIdx}
               />
             </Grid>
-            <Grid item xs={4} md={3}>
+            <Grid item xs={4} md={4}>
               <Tracks
                 token={token}
                 activeMenu={activeMenu}
@@ -81,21 +72,31 @@ const Player = ({ token }: PlayerProps) => {
                 tracks={[]}
               />
             </Grid>
-            <Grid item xs={12} md={5}>
+            <Grid
+              item
+              xs={12}
+              md={5}
+              display="flex"
+              justifyContent="center"
+              alignItems="flex-start"
+            >
               <Box
+                component="img"
+                src="src\assets\img\turntable.png"
+                alt="turntable"
                 sx={{
-                  m: 0,
-                  flexGrow: 1,
-                  height: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "600px",
+                  height: "auto",
                 }}
-              >
-                <span>Now playing...</span>
-              </Box>
+              />
             </Grid>
           </Grid>
         )}
       </Container>
-    </Box>
+    </>
   );
 };
 

@@ -15,20 +15,20 @@ import {
 import { GlobalContext } from "../context";
 import MenuIcon from "@mui/icons-material/Menu";
 import GraphicEqIcon from "@mui/icons-material/GraphicEq";
-
 import AvatarImage from "../assets/avatar.jpg";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import { Sun, Moon } from "lucide-react";
-
 const Search = styled("div")(({ theme }) => ({
+  borderColor: theme.palette.primary.main,
+  border: "2px solid",
   position: "relative",
-  borderRadius: theme.shape.borderRadius,
+  borderRadius: 25,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  marginLeft: 0,
+  marginLeft: 5,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
@@ -48,7 +48,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
-  width: "100%",
+  width: "500px",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
@@ -91,11 +91,12 @@ function NavBar() {
       position="static"
       sx={{
         justifyContent: "center",
-        backgroundColor: "background.default",
         color: "text.primary",
-        borderBottom: "2px solid #F3F3F3",
+        // borderBottom: "2px solid #F3F3F3",
         boxShadow: "none",
         py: 2,
+        mb: 3,
+        backgroundColor: "transparent",
       }}
     >
       <Container maxWidth={false}>
@@ -203,6 +204,20 @@ function NavBar() {
             <Box sx={{ display: "inline-block", mx: 2 }}>
               <Button sx={{ color: "text.primary" }} onClick={toggleColorMode}>
                 {colorMode === "light" ? <Sun /> : <Moon />}
+              </Button>
+            </Box>
+            <Box sx={{ display: "inline-block", mx: 2 }}>
+              <Button
+                variant="contained"
+                sx={{ color: "text.primary" }}
+                onClick={() => {
+                  localStorage.removeItem("spotifyToken");
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 1000);
+                }}
+              >
+                Reconnect
               </Button>
             </Box>
           </Box>

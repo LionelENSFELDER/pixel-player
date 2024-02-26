@@ -1,5 +1,6 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { LibraryObject, AvailableMenuType } from "../types";
+import capitalizeFirst from "../utils/capitalizeFirst";
 
 export interface LibraryProps {
   activeMenu: AvailableMenuType;
@@ -22,10 +23,9 @@ const Category = ({ activeMenu, data, handleIdx }: LibraryProps) => {
         height: "100%",
       }}
     >
-      <h2>{activeMenu}</h2>
+      <Typography variant="h6">{capitalizeFirst(activeMenu)}</Typography>
       {data &&
         data.map((item, idx) => {
-          console.log(item);
           return (
             <Button
               sx={{ color: "text.primary" }}
@@ -45,13 +45,17 @@ const Category = ({ activeMenu, data, handleIdx }: LibraryProps) => {
                     ? item.show.images[2].url
                     : "../assets/img/placeholder"
                 }
-                sx={{}}
+                sx={{
+                  marginRight: 2,
+                }}
               />
-              {item.album
-                ? item.album.name
-                : item.show
-                ? item.show.name
-                : item.name}
+              <Typography sx={{}}>
+                {item.album
+                  ? item.album.name
+                  : item.show
+                  ? item.show.name
+                  : item.name}
+              </Typography>
             </Button>
           );
         })}

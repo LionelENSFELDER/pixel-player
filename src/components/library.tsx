@@ -1,9 +1,7 @@
 import { Box, Button } from "@mui/material";
 import { AvailableMenuType } from "../types";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import AlbumIcon from "@mui/icons-material/Album";
-import MicIcon from "@mui/icons-material/Mic";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
+import { TrendingUp, CassetteTape, Disc3, Mic } from "lucide-react";
 
 export interface MenuProps {
   handleActiveMenu: (name: AvailableMenuType) => void;
@@ -33,7 +31,6 @@ const Library = ({ handleActiveMenu }: MenuProps) => {
         bgColor: "background.default",
       }}
     >
-      <h2>Library</h2>
       {menuItems.length > 0 &&
         menuItems.map((item: AvailableMenuType, i) => {
           return (
@@ -41,24 +38,25 @@ const Library = ({ handleActiveMenu }: MenuProps) => {
               key={i}
               size="large"
               variant="text"
-              sx={{ color: "text.primary" }}
+              sx={{
+                color: "primary.dark",
+                marginBottom: 3,
+              }}
               onClick={() => handleActiveMenu(item)}
               startIcon={
                 item === "playlists" ? (
-                  <FavoriteIcon />
+                  <CassetteTape />
                 ) : item === "albums" ? (
-                  <AlbumIcon />
+                  <Disc3 />
                 ) : item === "shows" ? (
-                  <MicIcon />
+                  <Mic />
                 ) : item === "trending" ? (
-                  <WhatshotIcon />
+                  <TrendingUp />
                 ) : (
                   <WhatshotIcon />
                 )
               }
-            >
-              {item}
-            </Button>
+            ></Button>
           );
         })}
     </Box>
