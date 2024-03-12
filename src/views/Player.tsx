@@ -6,8 +6,15 @@ import { getUserCurrentLibrary } from "../api/spotify";
 import { PlayerProps, AvailableMenuType, LibraryObject } from "../types";
 import { Box, Container, Grid } from "@mui/material";
 import NavBar from "../components/navbar";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updatePlaylists,
+  updateAlbums,
+  updateShows,
+} from "../store/library/librarySlice";
 
 const Player = ({ token }: PlayerProps) => {
+  const dispatch = useDispatch();
   const [library, setLibrary] = useState<LibraryObject | null>(null);
 
   const [activeMenu, setActiveMenu] = useState<AvailableMenuType>("playlists");
@@ -27,6 +34,10 @@ const Player = ({ token }: PlayerProps) => {
           token && (await getUserCurrentLibrary(token, "playlists"));
         const albums = token && (await getUserCurrentLibrary(token, "albums"));
         const shows = token && (await getUserCurrentLibrary(token, "shows"));
+
+        dispatch(updatePlaylists(playlists));
+        dispatch(updateAlbums(albums));
+        dispatch(updateShows(shows));
 
         setLibrary({
           trending: {},

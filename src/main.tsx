@@ -7,6 +7,8 @@ import LoginCallback from "./views/loginCallback.tsx";
 import App from "./App.tsx";
 import "./index.css";
 import CssBaseline from "@mui/material/CssBaseline";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +29,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <CssBaseline />
     <GlobalContextProvider>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </GlobalContextProvider>
   </React.StrictMode>
 );
